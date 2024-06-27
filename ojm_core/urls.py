@@ -1,7 +1,15 @@
 from django.conf.urls import handler404, handler500
 from django.urls import path 
 from . import views
+from django.contrib.sitemaps.views import sitemap
+from .sitemaps import StaticViewSitemap
+
 app_name='ojm_core'
+
+sitemaps = {
+    'static': StaticViewSitemap,  
+}
+
 urlpatterns = [
     path('', views.index, name="index"),
     path('dashboard',views.dashboard,name="dashboard"),
@@ -23,6 +31,7 @@ urlpatterns = [
     path('request/<int:request_id>/send-quote/', views.send_quote, name='send_quote'),
     path('customer-info/<int:request_id>/',views.customer_info,name="customer_info"),
     path('notifications/', views.get_notifications, name='notifications'),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 ]
 
 handler404 = 'ojm_core.views.custom_404'

@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'userauth',
     'chatapp',
     'payment',
+    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [
