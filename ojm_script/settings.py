@@ -48,13 +48,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
     
     'ojm_core',
     'userauth',
     'chatapp',
     'payment',
-    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [
@@ -187,3 +187,4 @@ PAYSTACK_SECRET_KEY = os.getenv('PAYSTACK_SECRET_KEY')
 
 
 AUTH_USER_MODEL = 'userauth.User'
+SITE_ID = 1
