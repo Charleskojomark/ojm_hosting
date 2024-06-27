@@ -485,14 +485,22 @@ def custom_500(request):
 
 
 
-
-
 def sitemap_view(request):
     try:
+        # Create an instance of your StaticViewSitemap class
         sitemap = StaticViewSitemap()
+
+        # Generate the sitemap XML using Django's built-in sitemap view function
         xml = sitemap_views.sitemap(request, sitemaps={'static': sitemap})
-        return HttpResponse(xml, content_type='application/xml')
+
+        # Ensure the response content is fully rendered before returning
+        response = HttpResponse(content_type='application/xml')
+        response.write(xml)
+        return response
+
     except Exception as e:
         import logging
         logging.error(f"Error generating sitemap: {str(e)}")
+        
+        # If an exception occurs during sitemap generation, return an Internal Server Error response
         return HttpResponse("Internal Server Error", status=500)
