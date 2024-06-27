@@ -88,13 +88,12 @@ img {
 
 
 .ojm_background{
-    background: url('../Assest/Img/ojmelectrical_background 9.jpg') no-repeat;
+    background: url('../Assest/Img/ojmelectrical-background-9.jpg') no-repeat;
     background-size: cover;
     transition: background .5s ease;
     margin: 0;
     position: relative;
     top: -20px;
-    
 }
 
 
