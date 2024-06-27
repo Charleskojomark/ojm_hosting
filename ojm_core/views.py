@@ -25,6 +25,10 @@ from chatapp.models import Conversation, Message
 
 from django.conf import settings
 from pusher import Pusher
+from django.contrib.sitemaps import Sitemap
+from django.http import HttpResponse
+from django.contrib.sitemaps import views as sitemap_views
+from .sitemaps import StaticViewSitemap
 
 pusher = Pusher(
     app_id=settings.PUSHER_APP_ID,
@@ -476,3 +480,19 @@ def custom_404(request, exception):
 
 def custom_500(request):
     return render(request, '500.html', status=500)
+
+
+
+
+
+
+
+def sitemap_view(request):
+    try:
+        sitemap = StaticViewSitemap()
+        xml = sitemap_views.sitemap(request, sitemaps={'static': sitemap})
+        return HttpResponse(xml, content_type='application/xml')
+    except Exception as e:
+        import logging
+        logging.error(f"Error generating sitemap: {str(e)}")
+        return HttpResponse("Internal Server Error", status=500)

@@ -31,7 +31,7 @@ urlpatterns = [
     path('request/<int:request_id>/send-quote/', views.send_quote, name='send_quote'),
     path('customer-info/<int:request_id>/',views.customer_info,name="customer_info"),
     path('notifications/', views.get_notifications, name='notifications'),
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('sitemap.xml', views.sitemap_view, name='sitemap'),
 ]
 
 handler404 = 'ojm_core.views.custom_404'
