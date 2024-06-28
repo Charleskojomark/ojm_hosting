@@ -35,7 +35,7 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 # settings.py
 
-ALLOWED_HOSTS = ['www.ojmelectrical.com','ojmelectrical.com','localhost','127.0.0.1']
+ALLOWED_HOSTS = ['ojmelectrical.com','www.ojmelectrical.com','localhost','127.0.0.1']
 
 
 
@@ -187,4 +187,8 @@ PAYSTACK_SECRET_KEY = os.getenv('PAYSTACK_SECRET_KEY')
 
 
 AUTH_USER_MODEL = 'userauth.User'
-SITE_ID = 1
+
+SECURE_HSTS_SECONDS = 31536000  
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
