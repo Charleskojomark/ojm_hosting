@@ -50,3 +50,59 @@ class Notification(models.Model):
         ordering = ('-created_at',)
     def __str__(self):
         return f"{self.get_notification_type_display()} Notification for {self.user}"
+    
+
+class ServiceCategory(models.Model):
+    name = models.CharField(max_length=255)
+    short_description = models.TextField()
+    image = models.ImageField(upload_to='category_images/')
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name = "Service Category"
+        verbose_name_plural = "Service Categories"
+        
+class ServiceSubCategory(models.Model):
+    category = models.ForeignKey(ServiceCategory, related_name='subcategories', on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    short_description = models.TextField()
+    image = models.ImageField(upload_to='subcategory_images/')
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name = "Service Subcategory"
+        verbose_name_plural = "Service Subcategories"
+    
+
+class Service(models.Model):
+    subcategory = models.ForeignKey(ServiceSubCategory, related_name='services', on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    original_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    short_description = models.TextField()
+    description = models.TextField()
+    recommended = models.BooleanField(default=False)
+    popular = models.BooleanField(default=False)
+    image = models.ImageField(upload_to='service_images/')
+    cover_image = models.ImageField(upload_to='cover_images/')
+    need_the_service = models.TextField()
+    whats_included = models.TextField()
+    whats_excluded = models.TextField()
+    note_to_customer = models.TextField()
+
+    def discount_percent(self):
+        if self.original_price > 0:
+            discount = self.original_price - self.price
+            return (discount / self.original_price) * 100
+        return 0
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name = "Service"
+        verbose_name_plural = "Services"
