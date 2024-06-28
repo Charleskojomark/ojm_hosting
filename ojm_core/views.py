@@ -201,10 +201,24 @@ def categories(request):
     
     return render(request,'services.html',context)
 
-def services(request):
-    return render(request,'service.html')
-def service_detail(request):
-    return render(request,'single.html')
+def service_list(request, subcategory_id):
+    subcategory = get_object_or_404(ServiceSubCategory, id=subcategory_id)
+    services = subcategory.services.all()
+    context =  {
+        'subcategory': subcategory, 
+        'services': services,
+    }
+    return render(request, 'service.html',context)
+
+def service_detail(request, service_id):
+    service = get_object_or_404(Service, id=service_id)
+    context = {
+        'service': service,
+    }
+    return render(request, 'single.html', context)
+
+
+
 
 
 

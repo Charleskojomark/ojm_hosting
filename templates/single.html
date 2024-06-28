@@ -6,34 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{% static 'Assest/Img/ojm-log.png'%}" type="image/x-icon" />
     <title>Service Details</title>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css" />
     <link rel="stylesheet" href="{% static 'Css/single.css' %}">
 </head>
 <body>
     <section>
         <div class="main-container">
             <div class="top">
-                <h2>Service Description</h2>
-                <img src="{% static 'Assest/Img/ac2.jpeg' %}" alt="">
+                <h2>{{ service.name }}</h2>
+                <img src="{{ service.cover_image.url }}" alt="{{ service.name }}">
                 <div class="service-box">
                     <div class="image">
-                        <img src="{% static 'Assest/Img/ad6.jpg' %}" alt="">
+                        <img src="{{ service.image.url }}" alt="{{ service.name }}">
                         <div class="description">
                             <div class="rating">
-                                *****
+                                <i class="uil uil-star"></i>
+                                <i class="uil uil-star"></i>
+                                <i class="uil uil-star"></i>
+                                <i class="uil uil-star"></i>
+                                <i class="uil uil-star"></i>
                             </div>
                             <div class="text">
-                                We are well equipped with the best electricians for you.
+                                {{ service.description|truncatechars:70 }}
                             </div>
                         </div>
                     </div>
                     <div class="price">
                         <div class="amount">
-                            <s>#9000.00</s>
-                            <span>#7000.00</span>
+                            <s>₦{{ service.price }}</s>
+                            <span>₦{{ service.original_price }}</span>
                         </div>
                         <div class="book-now">
                             <form method="GET" action="{%url 'ojm_core:search'%}">
-                                <input type="hidden" name="query" placeholder="What service do you need?" value="Service Description">
+                                <input type="hidden" name="query" placeholder="What service do you need?" value="{{ service.name }}">
                                 <button type="submit">Book now</button>
                               </form>
                         </div>
@@ -52,41 +57,24 @@
                         <h3>Overview of Service</h3>
                         <p>When do you need this particular service?</p>
                         <ul>
-                            <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum nam distinctio id possimus voluptas, corrupti delectus quasi nisi blanditiis autem explicabo repellat! Temporibus pariatur voluptatibus quidem error earum, ex doloribus!</li>
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit consectetur saepe facilis suscipit autem quibusdam dicta. Nesciunt veniam dolores, ad maxime voluptas eaque commodi ducimus. Quod, reiciendis temporibus. Eius, laborum?</li>
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore eaque aliquid velit explicabo blanditiis consequatur, provident quos! Porro, explicabo aperiam! Qui nihil vero id sint quia iusto molestiae voluptas debitis!</li>
+                            {{ service.need_the_service }}
                         </ul>
                         <p>What's Included?</p>
                         <ul>
-                            <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum nam distinctio id possimus voluptas, corrupti delectus quasi nisi blanditiis autem explicabo repellat! Temporibus pariatur voluptatibus quidem error earum, ex doloribus!</li>
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit consectetur saepe facilis suscipit autem quibusdam dicta. Nesciunt veniam dolores, ad maxime voluptas eaque commodi ducimus. Quod, reiciendis temporibus. Eius, laborum?</li>
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore eaque aliquid velit explicabo blanditiis consequatur, provident quos! Porro, explicabo aperiam! Qui nihil vero id sint quia iusto molestiae voluptas debitis!</li>
+                            {{ service.whats_included }}
                         </ul>
                         <p>Whats's Excluded?</p>
                         <ul>
-                            <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum nam distinctio id possimus voluptas, corrupti delectus quasi nisi blanditiis autem explicabo repellat! Temporibus pariatur voluptatibus quidem error earum, ex doloribus!</li>
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit consectetur saepe facilis suscipit autem quibusdam dicta. Nesciunt veniam dolores, ad maxime voluptas eaque commodi ducimus. Quod, reiciendis temporibus. Eius, laborum?</li>
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore eaque aliquid velit explicabo blanditiis consequatur, provident quos! Porro, explicabo aperiam! Qui nihil vero id sint quia iusto molestiae voluptas debitis!</li>
+                            {{ service.whats_excluded }}
                         </ul>
                         <p>Note to customer</p>
                         <ul>
-                            <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum nam distinctio id possimus voluptas, corrupti delectus quasi nisi blanditiis autem explicabo repellat! Temporibus pariatur voluptatibus quidem error earum, ex doloribus!</li>
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit consectetur saepe facilis suscipit autem quibusdam dicta. Nesciunt veniam dolores, ad maxime voluptas eaque commodi ducimus. Quod, reiciendis temporibus. Eius, laborum?</li>
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore eaque aliquid velit explicabo blanditiis consequatur, provident quos! Porro, explicabo aperiam! Qui nihil vero id sint quia iusto molestiae voluptas debitis!</li>
+                            {{ service.note_to_customer }}
                         </ul>
                     </div>
                     <div class="content" id="content2">
                         <h3>Frequently asked questions about this service</h3>
-                        <ul>
-                            <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum nam distinctio id possimus voluptas, corrupti delectus quasi nisi blanditiis autem explicabo repellat! Temporibus pariatur voluptatibus quidem error earum, ex doloribus!</li>
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit consectetur saepe facilis suscipit autem quibusdam dicta. Nesciunt veniam dolores, ad maxime voluptas eaque commodi ducimus. Quod, reiciendis temporibus. Eius, laborum?</li>
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore eaque aliquid velit explicabo blanditiis consequatur, provident quos! Porro, explicabo aperiam! Qui nihil vero id sint quia iusto molestiae voluptas debitis!</li>
-                        </ul>
-                        <ul>
-                            <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum nam distinctio id possimus voluptas, corrupti delectus quasi nisi blanditiis autem explicabo repellat! Temporibus pariatur voluptatibus quidem error earum, ex doloribus!</li>
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit consectetur saepe facilis suscipit autem quibusdam dicta. Nesciunt veniam dolores, ad maxime voluptas eaque commodi ducimus. Quod, reiciendis temporibus. Eius, laborum?</li>
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore eaque aliquid velit explicabo blanditiis consequatur, provident quos! Porro, explicabo aperiam! Qui nihil vero id sint quia iusto molestiae voluptas debitis!</li>
-                        </ul>
+                        
                     </div>
                     <div class="content" id="content3">
                         <h3>No Reviews Yet</h3>
