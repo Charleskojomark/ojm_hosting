@@ -14,7 +14,7 @@ from django.contrib.auth.models import Group
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
 from django.http import JsonResponse
-from .models import Request, Notification, Quote
+from .models import Request, Notification, Quote,Service,ServiceCategory,ServiceSubCategory
 from django.core.exceptions import ValidationError
 from datetime import datetime
 from payment.models import Wallet,Payment,Subscription
@@ -22,6 +22,9 @@ import json
 from django.utils import timezone
 import logging
 from chatapp.models import Conversation, Message
+
+from django.db.models import Count
+
 
 from django.conf import settings
 from pusher import Pusher
@@ -45,21 +48,24 @@ SUBSCRIPTION_TOTAL_QUOTES = {
 }
 
 def index(request):
+    categories = ServiceCategory.objects.all()[:6]
     if request.user.is_authenticated:
         notifications = Notification.objects.filter(user=request.user)
         unread_count = notifications.filter(read=False).count()
         read_count = notifications.filter(read=True).count()
-
         context = {
             'notifications': notifications,
             'unread_count': unread_count,
-            'read_count': read_count
+            'read_count': read_count,
+            'categories':categories,
         }
     else:
-        context = {}
+        context = {
+            'categories':categories,
+            
+        }
     
     return render(request, 'index.html', context)
-
 def dashboard(request):
     if request.user.groups.filter(name='customers').exists():
         return redirect('ojm_core:user_dashboard')
