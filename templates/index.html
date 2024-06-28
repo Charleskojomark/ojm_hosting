@@ -145,49 +145,19 @@
         <a href="{%url 'ojm_core:categories'%}?category=category2" class="cart_link">View All</a>
       </div>
       <div class="categories">
+        {%if categories%}
+        {% for category in categories %}
         <div class="carts main-content">
-          <a href="">
-            <img src="{% static 'Assest/Img/conduit-wiring.jpg' %}" alt="">
-            <p class="desc">Electrical Wiring</p>
+          <a href="{%url 'ojm_core:categories'%}?category={{ category.name }}">
+            <img src="{{ category.image.url }}" alt="{{ category.name }}">
+            <p class="desc">{{ category.name }}</p>
           </a>
         </div>
+        {%endfor%}
+        {% else %}
+        <p>No categories available.</p>
+        {% endif %}
 
-
-
-        <div class="carts main-content">
-          <a href="">
-            <img src="{% static 'Assest/Img/repairs1.png' %}" alt="">
-            <p class="desc">Electrical Repairs</p>
-          </a>
-        </div>
-
-        <div class="carts main-content">
-          <a href="">
-            <img src="{% static 'Assest/Img/installation6.png' %}" alt="">
-            <p class="desc">Electrical Installations</p>
-          </a>
-        </div>
-
-        <div class="carts main-content">
-          <a href="">
-            <img src="{% static 'Assest/Img/maintenance3.png' %}" alt="">
-            <p class="desc">Electrical Maintenance</p>
-          </a>
-        </div>
-
-        <div class="carts main-content">
-          <a href="">
-            <img src="{% static 'Assest/Img/faults1.png' %}" alt="">
-            <p class="desc">Electrical Fault Fixing</p>
-          </a>
-        </div>
-
-        <div class="carts main-content">
-          <a href=""> 
-            <img src="{% static 'Assest/Img/consultation1.png' %}" alt="">
-            <p class="desc">Electrical Consultation</p>
-          </a>
-        </div>
 
         
     </section>
