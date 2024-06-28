@@ -20,7 +20,7 @@
                     <img src="{{ category.image.url }}" alt="{{ category.name }}">
                     <p class="desc">{{ category.name }}</p>
                 </div>
-                <div class="sub-category">
+                {% comment %} <div class="sub-category">
                     {% for subcategory in category.subcategories.all %}
                     <a href="{% url 'ojm_core:service_list' subcategory.id %}">
                         <div class="sub-card">
@@ -33,7 +33,7 @@
                         </div>
                     </a>
                     {%endfor%}
-                </div>
+                </div> {% endcomment %}
             </div>
             {%endfor%}
         </div>
