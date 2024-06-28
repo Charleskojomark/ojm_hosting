@@ -92,11 +92,16 @@ h2,h3{
     /* justify-content: center; */
     /* align-items: center; */
 }
-.card img{
+.card .main-content{
+    height: 140px;
+    width: 150px;
+}
+.card .main-content img{
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 140%;
+    height: 100%;
     width: 100%;
+    object-fit: cover;
 }
 
 .card .desc {

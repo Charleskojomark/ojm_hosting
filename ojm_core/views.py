@@ -186,7 +186,20 @@ def search_view(request):
         return render(request, 'index.html')
     
 def categories(request):
-    return render(request,'services.html')
+    categories = ServiceCategory.objects.all()
+    categories_with_subcategories = categories.annotate(
+        subcategories_count=Count('subcategories')
+    ).prefetch_related('subcategories__services')
+
+    for category in categories_with_subcategories:
+        for subcategory in category.subcategories.all():
+            subcategory.service_count = subcategory.services.count()
+    
+    context = {
+        'categories': categories_with_subcategories,
+    }
+    
+    return render(request,'services.html',context)
 
 def services(request):
     return render(request,'service.html')
