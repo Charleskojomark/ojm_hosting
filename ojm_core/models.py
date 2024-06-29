@@ -1,7 +1,7 @@
 from django.db import models
 from userauth.models import User
 # Create your models here.
-class Request(models.Model):
+class ServiceRequest(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     query = models.CharField(max_length=255)
     service_description = models.TextField()
@@ -23,7 +23,7 @@ class Quote(models.Model):
         ('Per hour', 'Per hour'),
     ]
     
-    request = models.ForeignKey(Request, on_delete=models.CASCADE)
+    request = models.ForeignKey(ServiceRequest, on_delete=models.CASCADE)
     electrician = models.ForeignKey(User, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     price_type = models.CharField(max_length=50, choices=PRICE_TYPE_CHOICES)

@@ -14,7 +14,7 @@ from django.contrib.auth.models import Group
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
 from django.http import JsonResponse
-from .models import Request, Notification, Quote,Service,ServiceCategory,ServiceSubCategory
+from .models import ServiceRequest, Notification, Quote,Service,ServiceCategory,ServiceSubCategory
 from django.core.exceptions import ValidationError
 from datetime import datetime
 from payment.models import Wallet,Payment,Subscription
@@ -293,7 +293,7 @@ def post_request(request):
             'start_date': start_date,
             'readiness':readiness
         }
-        Request.objects.create(**request_data)
+        ServiceRequest.objects.create(**request_data)
 
         # Display success message
         messages.success(request, f"Welcome {username}, Your request was posted, Check your mail to activate your account")
@@ -330,7 +330,7 @@ def user_post(request):
             'start_date': start_date,
             'readiness':readiness
         }
-        Request.objects.create(**request_data)
+        ServiceRequest.objects.create(**request_data)
 
         messages.success(request, f"Your request has been posted,You will be contacted immediately")
         return redirect('ojm_core:index')
@@ -344,8 +344,8 @@ def post_job(request):
 
 def all_requests(request):
     customers_group = Group.objects.get(name="customers")
-    # requests = Request.objects.filter(user__groups=customers_group)
-    requests = Request.objects.all()
+    # requests = ServiceRequest.objects.filter(user__groups=customers_group)
+    requests = ServiceRequest.objects.all()
     context = {
         'requests':requests,
     }
@@ -354,7 +354,7 @@ def all_requests(request):
 
 @login_required
 def request_detail(request, request_id):
-    req = get_object_or_404(Request, id=request_id)
+    req = get_object_or_404(ServiceRequest, id=request_id)
     
     # Get the appropriate profile
     user_profile = None
@@ -383,7 +383,7 @@ def request_detail(request, request_id):
 
 @login_required
 def customer_info(request,request_id):
-    req = get_object_or_404(Request, id=request_id)
+    req = get_object_or_404(ServiceRequest, id=request_id)
     
     user_profile = None
     if hasattr(req.user, 'customerprofile'):
@@ -402,7 +402,7 @@ def customer_info(request,request_id):
 @login_required
 @csrf_exempt
 def send_quote(request, request_id):
-    request_obj = get_object_or_404(Request, id=request_id)
+    request_obj = get_object_or_404(ServiceRequest, id=request_id)
     electrician_profile = get_object_or_404(ElectricianProfile, user=request.user)
 
     if not electrician_profile.id_verified:

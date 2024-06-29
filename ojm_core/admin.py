@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Request, Notification,Quote,Service,ServiceCategory,ServiceSubCategory
-admin.site.register(Request)
+from .models import ServiceRequest, Notification,Quote,Service,ServiceCategory,ServiceSubCategory
+admin.site.register(ServiceRequest)
 admin.site.register(Notification)
 admin.site.register(Quote)
 admin.site.register(Service)

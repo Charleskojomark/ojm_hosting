@@ -9,7 +9,7 @@ from django.conf import settings
 import logging
 from .models import Conversation, Message
 from userauth.models import User
-from ojm_core.models import Notification,Request,Quote
+from ojm_core.models import Notification,ServiceRequest,Quote
 
 pusher = Pusher(
     app_id=settings.PUSHER_APP_ID,
