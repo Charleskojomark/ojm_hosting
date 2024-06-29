@@ -121,6 +121,26 @@ def activate(request, uidb64, token):
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
         user.save()
+        
+        electricians_group = Group.objects.get(name='electricians')
+        if electricians_group in user.groups.all():
+            # Get or create a subscription with 10 remaining quotes
+            subscription, created = Subscription.objects.get_or_create(user=user, defaults={'remaining_quotes': 10})
+            if not created:
+                subscription.remaining_quotes = 10
+                subscription.save()
+            
+            # Send a special message for electricians
+            current_site = get_current_site(request)
+            mail_subject = 'Welcome to OJM Electrical - Get Started!'
+            message = render_to_string('welcome_electrician_email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'requests_url': f'https://{current_site.domain}/requests'
+            })
+            to_email = user.email
+            send_mail(mail_subject, message, 'Ojm Electrical', [to_email])
+
         login(request, user)
         messages.success(request, f"Congratulations, Your account has been activated")
         return redirect('ojm_core:index')
