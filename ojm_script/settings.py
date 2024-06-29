@@ -184,7 +184,7 @@ SSL = os.getenv('SSL', 'False') == 'True'
 
 PAYSTACK_PUBLIC_KEY = os.getenv('PAYSTACK_PUBLIC_KEY')
 PAYSTACK_SECRET_KEY = os.getenv('PAYSTACK_SECRET_KEY')
-
+SITE_ID = 2
 
 AUTH_USER_MODEL = 'userauth.User'
 # DEBUG_PROPAGATE_EXCEPTIONS = True
