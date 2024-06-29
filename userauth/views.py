@@ -16,6 +16,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import update_session_auth_hash
 
+from payment.models import Wallet,Payment,Subscription
 
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from django.urls import reverse_lazy
@@ -68,6 +69,65 @@ def signup(request):
 
 
 
+# def prof_signup(request):
+#     if request.method == "POST":
+#         form = ElectricianSignUpForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             user = form.save(commit=False)
+#             user.is_active = False  # Deactivate account till it is confirmed
+#             user.save()
+#             electrician_profile = ElectricianProfile.objects.create(user=user,
+#                                                       business_name=form.cleaned_data['business_name'],
+#                                                       service_description=form.cleaned_data['service_description'],
+#                                                       profile_picture=form.cleaned_data['profile_picture'],
+#                                                       founded_date=form.cleaned_data['founded_date'],
+#                                                       registered=form.cleaned_data['registered'],
+#                                                       country=form.cleaned_data['country'],
+#                                                       state=form.cleaned_data['state'],
+#                                                       city=form.cleaned_data['city'],
+#                                                       address=form.cleaned_data['address'],
+#                                                       terms=form.cleaned_data['terms'])
+#             electrician_profile.save()
+#             electricians, created = Group.objects.get_or_create(name='electricians')
+
+#             user.groups.add(electricians)
+#             current_site = get_current_site(request)
+#             mail_subject = 'Activate your OJM account.'
+#             message = render_to_string('verify_email.html', {
+#                 'user': user,
+#                 'domain': current_site.domain,
+#                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+#                 'token': default_token_generator.make_token(user),
+#             })
+#             to_email = form.cleaned_data.get('email')
+#             send_mail(mail_subject, message, 'Ojm Electrical', [to_email])
+#             username = form.cleaned_data.get('username')
+#             messages.success(request, f"Welcome {username}, Please check your email to confirm your address")
+#             return redirect('ojm_core:index')
+#     else:
+#         form = ElectricianSignUpForm()
+
+#     context = {'form': form}
+#     return render(request, 'prof-signup.html', context)
+
+
+
+# def activate(request, uidb64, token):
+#     try:
+#         uid = force_str(urlsafe_base64_decode(uidb64))
+#         user = User.objects.get(pk=uid)
+#     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+#         user = None
+#     if user is not None and default_token_generator.check_token(user, token):
+#         user.is_active = True
+#         user.save()
+#         login(request, user)
+#         messages.success(request, f"Congratulations, Your account has been activated")
+#         return redirect('ojm_core:index')
+#     else:
+#         return HttpResponse('Activation link is invalid!')
+
+
 def prof_signup(request):
     if request.method == "POST":
         form = ElectricianSignUpForm(request.POST, request.FILES)
@@ -75,21 +135,33 @@ def prof_signup(request):
             user = form.save(commit=False)
             user.is_active = False  # Deactivate account till it is confirmed
             user.save()
-            electrician_profile = ElectricianProfile.objects.create(user=user,
-                                                      business_name=form.cleaned_data['business_name'],
-                                                      service_description=form.cleaned_data['service_description'],
-                                                      profile_picture=form.cleaned_data['profile_picture'],
-                                                      founded_date=form.cleaned_data['founded_date'],
-                                                      registered=form.cleaned_data['registered'],
-                                                      country=form.cleaned_data['country'],
-                                                      state=form.cleaned_data['state'],
-                                                      city=form.cleaned_data['city'],
-                                                      address=form.cleaned_data['address'],
-                                                      terms=form.cleaned_data['terms'])
-            electrician_profile.save()
+            
+            electrician_profile = ElectricianProfile.objects.create(
+                user=user,
+                business_name=form.cleaned_data['business_name'],
+                service_description=form.cleaned_data['service_description'],
+                profile_picture=form.cleaned_data['profile_picture'],
+                founded_date=form.cleaned_data['founded_date'],
+                registered=form.cleaned_data['registered'],
+                country=form.cleaned_data['country'],
+                state=form.cleaned_data['state'],
+                city=form.cleaned_data['city'],
+                address=form.cleaned_data['address'],
+                terms=form.cleaned_data['terms']
+            )
+            
             electricians, created = Group.objects.get_or_create(name='electricians')
-
             user.groups.add(electricians)
+            
+            # Send initial email upon registration
+            send_initial_email(user, form.cleaned_data['email'])
+
+            # Create Subscription with remaining_quotes set to 10
+            subscription, created = Subscription.objects.get_or_create(user=user)
+            if created:
+                subscription.remaining_quotes = 10
+                subscription.save()
+
             current_site = get_current_site(request)
             mail_subject = 'Activate your OJM account.'
             message = render_to_string('verify_email.html', {
@@ -109,7 +181,11 @@ def prof_signup(request):
     context = {'form': form}
     return render(request, 'prof-signup.html', context)
 
-
+def send_initial_email(user, email):
+    # Function to send initial registration email
+    mail_subject = 'Welcome to OJM Electrical!'
+    message = f'Welcome, {user.username}! Verify your account to get 10 quotes for free through your email.'
+    send_mail(mail_subject, message, 'Ojm Electrical', [email])
 
 def activate(request, uidb64, token):
     try:
@@ -117,15 +193,32 @@ def activate(request, uidb64, token):
         user = User.objects.get(pk=uid)
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
+
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
         user.save()
         login(request, user)
-        messages.success(request, f"Congratulations, Your account has been activated")
+        
+        # Send activation success email with 10 free quotes information
+        send_activation_success_email(user.email)
+        
+        messages.success(request, "Congratulations, Your account has been activated!")
         return redirect('ojm_core:index')
     else:
         return HttpResponse('Activation link is invalid!')
 
+def send_activation_success_email(email):
+    current_site = get_current_site(None)  # Pass None if no request context available
+    domain = current_site.domain
+    requests_url = reverse('requests')  # Assuming 'requests' is the name of the URL pattern
+
+    activation_url = f"http://{domain}{requests_url}"
+
+    mail_subject = 'Your OJM Account Activation'
+    message = f'Congratulations! Your account is now activated. You have received 10 quotes to contact customers for free in the requests section.\n\n'
+    message += f'Click the following link to view requests: {activation_url}'
+
+    send_mail(mail_subject, message, 'Ojm Electrical', [email])
 
 def login_view(request):
     if request.user.is_authenticated:
