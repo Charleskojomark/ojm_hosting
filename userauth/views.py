@@ -9,6 +9,10 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
+
+from django.utils.html import strip_tags
+from django.core.mail import EmailMultiAlternatives
+
 from django.urls import reverse
 from django.http import HttpResponse
 from django.contrib.auth.tokens import default_token_generator
@@ -116,37 +120,42 @@ def activate(request, uidb64, token):
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
-    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
+    
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
         user.save()
+        login(request, user)
         
-        electricians_group = Group.objects.get(name='electricians')
-        if electricians_group in user.groups.all():
-            # Get or create a subscription with 10 remaining quotes
-            subscription, created = Subscription.objects.get_or_create(user=user, defaults={'remaining_quotes': 10})
+        # Check if the user is an electrician and send the welcome email
+        if user.groups.filter(name='electricians').exists():
+            subscription, created = Subscription.objects.get_or_create(
+                user=user, defaults={'remaining_quotes': 10, 'status': 'Active'}
+            )
             if not created:
                 subscription.remaining_quotes = 10
+                subscription.status = 'Active'
                 subscription.save()
-            
-            # Send a special message for electricians
+
+            # Prepare the welcome email
             current_site = get_current_site(request)
-            mail_subject = 'Welcome to OJM Electrical - Get Started!'
-            message = render_to_string('welcome_electrician_email.html', {
+            mail_subject = 'Welcome to OJM Electrical'
+            context = {
                 'user': user,
                 'domain': current_site.domain,
-                'requests_url': f'https://{current_site.domain}/requests'
-            })
+            }
+            html_message = render_to_string('welcome_electrician_email.html', context)
+            plain_message = strip_tags(html_message)
             to_email = user.email
-            send_mail(mail_subject, message, 'Ojm Electrical', [to_email])
+            email = EmailMultiAlternatives(mail_subject, plain_message, 'Ojm Electrical', [to_email])
+            email.attach_alternative(html_message, "text/html")
+            email.send()
 
-        login(request, user)
-        messages.success(request, f"Congratulations, Your account has been activated")
+        messages.success(request, "Congratulations, Your account has been activated")
         return redirect('ojm_core:index')
     else:
         return HttpResponse('Activation link is invalid!')
-
 
 def login_view(request):
     if request.user.is_authenticated:
