@@ -334,7 +334,7 @@
 
           <div class="Trends">
             <div class="trend-discount">{{ service.discount_percent|floatformat:0 }}% off</div>
-            <img src="{% static 'Assest/Img/solar2.jpeg' %}" alt="">
+            <img src="{{ service.image.url }}" alt="{{ service.name }}">
             <h3>{{service.name}}</h3>
             <form method="GET" action="{%url 'ojm_core:search'%}">
               <input type="hidden" name="query" placeholder="What service do you need?" value="{{service.name}}">
