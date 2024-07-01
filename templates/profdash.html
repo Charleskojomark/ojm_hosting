@@ -80,12 +80,14 @@
                                 <span>{{ subscription.status }} </span>
                                 {% if subscribed %}
                                 <span>{{ used_quotes }}/{{ total_quotes }}</span>
+                                {% elif subscription.name %}
+                                <span>{{ subscription.status }} </span>
+                                <span>{{ used_quotes }}/{{ total_quotes }}</span>
                                 {% else %}
-                                <span>0/10</span>  
+                                <span>{{ subscription.status }} </span>
                                 {% endif %}
                             </div>
-                            {% else %}
-                            <span>Inactive</span>
+                            
                             {% endif %}
                         </div>
                         <div class="wallet">

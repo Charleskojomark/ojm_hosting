@@ -72,7 +72,7 @@ class Subscription(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
     expiry = models.DateTimeField()
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='inactive')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Inactive')
     remaining_quotes = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):

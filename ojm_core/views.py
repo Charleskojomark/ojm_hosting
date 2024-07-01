@@ -90,13 +90,12 @@ def user_dashboard(request):
     return render(request, 'userdash.html',context)
 
 
-
 @login_required
 def prof_dashboard(request):
     profile = get_object_or_404(ElectricianProfile, user=request.user)
     user = request.user
     wallet, created = Wallet.objects.get_or_create(user=user)
-    payments = Payment.objects.filter(user=user,verified=True)
+    payments = Payment.objects.filter(user=user, verified=True)
     profile_pic_form = UpdatePicture(instance=profile)
     business_form = UpdateBusinessInfo(instance=profile)
     location_form = UpdateLocation(instance=profile)
@@ -108,51 +107,38 @@ def prof_dashboard(request):
     user_profile = ElectricianProfile.objects.get(user=request.user)
     id_form = IdentityForm(instance=user)
     subscription, created = Subscription.objects.get_or_create(user=user)
+
+    context = {
+        'profile': profile,
+        'profile_pic_form': profile_pic_form,
+        'business_form': business_form,
+        'location_form': location_form,
+        'prices_form': prices_form,
+        'qualification_form': qualification_form,
+        'form': form,
+        'wallet': wallet,
+        'subscription': subscription,
+        'payments': payments,
+        'notifications': notifications,
+        'electrician': electrician,
+        'user_profile': user_profile,
+        'id_form': id_form,
+    }
+
     if subscription.name:
         total_quotes = SUBSCRIPTION_TOTAL_QUOTES.get(subscription.name, 0)
         remaining_quotes = subscription.remaining_quotes
         used_quotes = total_quotes - remaining_quotes
         subscribed = subscription.status == "Active"
-        context = {
-        'profile': profile,
-        'profile_pic_form':profile_pic_form,
-        'business_form':business_form,
-        'location_form':location_form,
-        'prices_form':prices_form,
-        'qualification_form':qualification_form,
-        'form':form,
-        'wallet':wallet,
-        'subscription':subscription,
-        'payments':payments,
-        'notifications': notifications,
-        'electrician':electrician,
-        'user_profile': user_profile,
-        'id_form':id_form,
-        'total_quotes': total_quotes,
-        'remaining_quotes': remaining_quotes,
-        'used_quotes': used_quotes,
-        'subscribed':subscribed
-        }
-        return render(request, 'profdash.html',context)
-        
-    context = {
-        'profile': profile,
-        'profile_pic_form':profile_pic_form,
-        'business_form':business_form,
-        'location_form':location_form,
-        'prices_form':prices_form,
-        'qualification_form':qualification_form,
-        'form':form,
-        'wallet':wallet,
-        'subscription':subscription,
-        'payments':payments,
-        'notifications': notifications,
-        'electrician':electrician,
-        'user_profile': user_profile,
-        'id_form':id_form,
-        
-    }
-    return render(request, 'profdash.html',context)
+
+        context.update({
+            'total_quotes': total_quotes,
+            'remaining_quotes': remaining_quotes,
+            'used_quotes': used_quotes,
+            'subscribed': subscribed,
+        })
+
+    return render(request, 'profdash.html', context)
 
 def all_users(request):
     users = User.objects.all()
