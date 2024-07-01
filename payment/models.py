@@ -75,6 +75,12 @@ class Subscription(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
     remaining_quotes = models.IntegerField(default=0)
 
+    def save(self, *args, **kwargs):
+        if not self.pk:  # Only update expiry if it's a new subscription
+            self.expiry = self.calculate_expiry()
+            self.status = 'Inactive'  # Set status to active when creating a new subscription
+        super().save(*args, **kwargs)
+
     def calculate_expiry(self):
         # logic to calculate expiry based on the subscription name
         if self.name == "1 month":

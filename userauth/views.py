@@ -26,6 +26,7 @@ from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, 
 from django.urls import reverse_lazy
 from .forms import CustomPasswordResetForm, CustomSetPasswordForm,IdentityForm
 
+from datetime import datetime, timedelta
 
 from .forms import ElectricianSignUpForm,CustomerSignUpForm,UpdatePicture,UpdateBusinessInfo,UpdateLocation,UpdatePrices,UpdateQualification,UserUpdateForm,UpdateCustomerPicture,UpdateCustomerLocation
 
@@ -135,13 +136,15 @@ def activate(request, uidb64, token):
                 subscription.name = 'free'
                 subscription.status = 'Active'
                 subscription.remaining_quotes = 10
+                subscription.expiry = datetime.now() + timedelta(days=30)
                 subscription.save()
             except Subscription.DoesNotExist:
                 Subscription.objects.create(
                     user=user,
                     name='free',
                     status='Active',
-                    remaining_quotes=10
+                    remaining_quotes=10,
+                    expiry=datetime.now() + timedelta(days=30)
                 )
 
             # Prepare the welcome email
