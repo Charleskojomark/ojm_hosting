@@ -322,78 +322,34 @@
   <section class="trending_services swiper">
     <div class="trend_heading">
       <h2>Trending Services</h2>
-      <a href="">View All</a>
+      <a href="{%url 'ojm_core:all_services'%}">View All</a>
     </div>
     <div class="swiper-wrapper">
 
-
+      {%if services%}
+      {%for service in services%}
       <!-- trend one -->
       <div class="swiper-slide">
         <div class="trend_data">
 
           <div class="Trends">
-            <div class="trend-discount">10% off</div>
+            <div class="trend-discount">{{ service.discount_percent|floatformat:0 }}% off</div>
             <img src="{% static 'Assest/Img/solar2.jpeg' %}" alt="">
-            <h3>Solar Installation</h3>
+            <h3>{{service.name}}</h3>
             <form method="GET" action="{%url 'ojm_core:search'%}">
-              <input type="hidden" name="query" placeholder="What service do you need?" value="Solar Installation">
+              <input type="hidden" name="query" placeholder="What service do you need?" value="{{service.name}}">
               <button type="submit" class="trend-btn">Book Service <i class="uil uil-message"></i></button>
             </form>
           </div>
-
         </div>
       </div>
-
-      <!-- trend Two -->
-      <div class="swiper-slide">
-        <div class="trend_data">
-
-          <div class="Trends">
-            <div class="trend-discount">10% off</div>
-            <img src="{% static 'Assest/Img/cctv2.jpeg' %}" alt="">
-            <h3>CCTV Camera Installation</h3>
-            <form method="GET" action="{%url 'ojm_core:search'%}">
-              <input type="hidden" name="query" placeholder="What service do you need?" value="CCTV Camera Installation">
-              <button type="submit" class="trend-btn">Book Service <i class="uil uil-message"></i></button>
-            </form>
-          </div>
-
-        </div>
+      {%endfor%}
+      {%else%}
+      <div>
+        <h2>No Trending services Yet</h2>
       </div>
+      {%endif%}
 
-      <!-- trend Three -->
-      <div class="swiper-slide">
-        <div class="trend_data">
-
-          <div class="Trends">
-            <div class="trend-discount">10% off</div>
-            <img src="{% static 'Assest/Img/wiring5.jpeg' %}" alt="">
-            <h3>House Wiring Services</h3>
-            <form method="GET" action="{%url 'ojm_core:search'%}">
-              <input type="hidden" name="query" placeholder="What service do you need?" value="House Wiring Services">
-              <button type="submit" class="trend-btn">Book Service <i class="uil uil-message"></i></button>
-            </form>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- trend four -->
-      <div class="swiper-slide">
-        <div class="trend_data">
-
-          <div class="Trends">
-            <div class="trend-discount">10% off</div>
-            <img src="{% static 'Assest/Img/ac2.jpeg' %}" alt="">
-            <h3>AC Installation</h3>
-            <form method="GET" action="{%url 'ojm_core:search'%}">
-              <input type="hidden" name="query" placeholder="What service do you need?" value="AC Installation">
-              <button type="submit" class="trend-btn">Book Service <i class="uil uil-message"></i></button>
-            </form>
-          </div>
-
-        </div>
-      </div>
     </div>
     <!-- <div class="swiper-scrollbar"></div> -->
 
