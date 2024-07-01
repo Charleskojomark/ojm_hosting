@@ -112,7 +112,7 @@ def paystack_webhook(request):
             }
             
         elif payment_type == 'subscription':
-            subscription, created = Subscription.objects.get_or_create(user=user, defaults={'status': 'Inactive'})
+            subscription, created = Subscription.objects.get_or_create(user=user, defaults={'status': 'Active'})
 
             price_ranges = {
                 10500: ("1 month", 100),
