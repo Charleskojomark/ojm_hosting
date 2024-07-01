@@ -17,7 +17,6 @@
         <meta charset="UTF-8">
         <title>Welcome to OJM Electrical</title>
         <style>
-            /* Add your CSS styles here */
             body {
                 font-family: 'Lato', Arial, sans-serif;
                 line-height: 1.6;
@@ -44,12 +43,17 @@
                 margin-bottom: 10px;
                 text-align: center;
             }
-            a {
-                color: rgb(243, 182, 18);
+            .button {
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: rgb(243, 182, 18);
+                color: #ffffff;
                 text-decoration: none;
+                border-radius: 4px;
+                text-align: center;
             }
-            a:hover {
-                text-decoration: underline;
+            .button:hover {
+                background-color: #ffc107; /* Lighter shade on hover */
             }
             .footer {
                 margin-top: 20px;
@@ -61,7 +65,7 @@
     </head>
     <body>
         <div class="container">
-            <h1>Welcome to OJM Electrical, {{ user.username }}!</h1>
+            <h3>Welcome to OJM Electrical, {{ user.username }}!</h3>
             <p>Congratulations on activating your account. As an electrician, you now have 10 free quotes to start connecting with potential customers.</p>
             <p>To view the latest requests and start using your quotes, click the link below:</p>
             <p><a href="https://{{ domain }}/requests">View Requests</a></p>
