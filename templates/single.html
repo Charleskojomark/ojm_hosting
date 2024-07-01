@@ -20,11 +20,7 @@
                         <img src="{{ service.image.url }}" alt="{{ service.name }}">
                         <div class="description">
                             <div class="rating">
-                                <i class="uil uil-star"></i>
-                                <i class="uil uil-star"></i>
-                                <i class="uil uil-star"></i>
-                                <i class="uil uil-star"></i>
-                                <i class="uil uil-star"></i>
+                                {{service.get_rating_display}}
                             </div>
                             <div class="text">
                                 {{ service.description|truncatechars:70 }}
