@@ -106,3 +106,11 @@ class Service(models.Model):
     class Meta:
         verbose_name = "Service"
         verbose_name_plural = "Services"
+
+
+class Advertisement(models.Model):
+    name = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='advertisements/')
+
+    def __str__(self):
+        return self.name

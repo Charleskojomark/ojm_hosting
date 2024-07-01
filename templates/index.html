@@ -165,29 +165,23 @@
   <!-- <section class="ads_display"> -->
   <div class="swiper-container">
     <div class="swiper-wrapper">
+      {%if advertisements%}
+      {% for ad in advertisements %}
+        <div class="swiper-slide ad">
+            <img src="{{ ad.image.url }}" alt="{{ ad.name }}">
+        </div>
+      {% endfor %}
+      {%else%}
       <div class="swiper-slide ad">
-        <img src="{% static 'Assest/Img/advert2.jpg' %}" alt="">
+        <h2>No ads to display</h2>
       </div>
-
       <div class="swiper-slide ad">
-        <img src="{% static 'Assest/Img/solar1.jpeg' %}" alt="">
+        <h2>No ads to display</h2>
       </div>
-
       <div class="swiper-slide ad">
-        <img src="{% static 'Assest/Img/cctv1.jpeg' %}" alt="">
+        <h2>No ads to display</h2>
       </div>
-
-      <div class="swiper-slide ad">
-        <img src="{% static 'Assest/Img/flame5.jpeg' %}" alt="">
-      </div>
-
-      <div class="swiper-slide ad">
-        <img src="{% static 'Assest/Img/hdmi1.jpeg' %}" alt="">
-      </div>
-
-      <div class="swiper-slide ad">
-        <img src="{% static 'Assest/Img/switch1.jpeg' %}" alt="">
-      </div>
+      {%endif%}
     </div>
     <!-- <div class="swiper-pagination"></div> -->
   </div>

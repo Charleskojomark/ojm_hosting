@@ -14,7 +14,7 @@ from django.contrib.auth.models import Group
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
 from django.http import JsonResponse
-from .models import ServiceRequest, Notification, Quote,Service,ServiceCategory,ServiceSubCategory
+from .models import ServiceRequest, Notification, Quote,Service,ServiceCategory,ServiceSubCategory,Advertisement
 from django.core.exceptions import ValidationError
 from datetime import datetime
 from payment.models import Wallet,Payment,Subscription
@@ -48,25 +48,27 @@ SUBSCRIPTION_TOTAL_QUOTES = {
     "6 months": 1000,
 }
 
+
 def index(request):
     categories = ServiceCategory.objects.all()[:6]
+    advertisements = Advertisement.objects.all()
+    context = {
+        'categories': categories,
+        'advertisements': advertisements
+    }
+
     if request.user.is_authenticated:
         notifications = Notification.objects.filter(user=request.user)
         unread_count = notifications.filter(read=False).count()
         read_count = notifications.filter(read=True).count()
-        context = {
+        context.update({
             'notifications': notifications,
             'unread_count': unread_count,
-            'read_count': read_count,
-            'categories':categories,
-        }
-    else:
-        context = {
-            'categories':categories,
-            
-        }
-    
+            'read_count': read_count
+        })
+
     return render(request, 'index.html', context)
+
 def dashboard(request):
     if request.user.groups.filter(name='customers').exists():
         return redirect('ojm_core:user_dashboard')
@@ -522,3 +524,6 @@ def sitemap_view(request):
         
         # If an exception occurs during sitemap generation, return an Internal Server Error response
         return HttpResponse("Internal Server Error", status=500)
+    
+    
+    
