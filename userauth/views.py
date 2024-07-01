@@ -130,14 +130,19 @@ def activate(request, uidb64, token):
 
         # Check if the user is an electrician and send the welcome email
         if user.groups.filter(name='electricians').exists():
-            subscription, created = Subscription.objects.get_or_create(
-                user=user, defaults={'name': 'free', 'status': 'Active', 'remaining_quotes': 10}
-            )
-            if not created:
+            try:
+                subscription = Subscription.objects.get(user=user)
                 subscription.name = 'free'
                 subscription.status = 'Active'
                 subscription.remaining_quotes = 10
                 subscription.save()
+            except Subscription.DoesNotExist:
+                Subscription.objects.create(
+                    user=user,
+                    name='free',
+                    status='Active',
+                    remaining_quotes=10
+                )
 
             # Prepare the welcome email
             current_site = get_current_site(request)

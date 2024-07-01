@@ -106,7 +106,9 @@ def prof_dashboard(request):
     electrician = ElectricianProfile.objects.filter(user=user)
     user_profile = ElectricianProfile.objects.get(user=request.user)
     id_form = IdentityForm(instance=user)
-    subscription, created = Subscription.objects.get_or_create(user=user)
+    subscription, created = Subscription.objects.get_or_create(
+                user=user, defaults={'status': 'Inactive'}
+            )
 
     context = {
         'profile': profile,
