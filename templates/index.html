@@ -193,193 +193,37 @@
       <a href="">View All</a>
     </div>
     <div class="swiper-wrapper wrapers">
-
-
+      {%if services%}
+      {%for service in services%}
       <!-- service one -->
       <div class="swiper-slide">
         <div class="service_data">
           <div class="service-header">
-            <img src="{% static 'Assest/Img/cctv2.jpeg' %}" alt="">
-            <div class="discount">10% off</div>
+            <img src="{{ service.image.url }}" alt="{{ service.name }}">
+            <div class="discount">{{ service.discount_percent|floatformat:0 }}% off</div>
             <div class="header_text">
-              <h3>CCTV Camera Installation</h3>
+              <h3>{{ service.name }}</h3>
               <div>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
+                {{ service.rating }}
               </div>
-              <span>Expert CCTV installation with professional setup and reliable support for your home security
-                needs.</span>
+              <span>{{ service.short_description }}</span>
             </div>
           </div>
           <div class="startoff_price">
             <h4>Starts from</h4>
             <p>
-              <s>₦300000</s>
-              <strong>₦270000</strong>
+              <s>₦{{ service.original_price }}</s>
+              <strong>₦{{ service.price }}</strong>
             </p>
           </div>
         </div>
       </div>
-
-      <!-- service two -->
-      <div class="swiper-slide">
-        <div class="service_data">
-          <div class="service-header">
-            <img src="{% static 'Assest/Img/solar2.jpeg' %}" alt="">
-            <div class="discount">10% off</div>
-
-            <div class="header_text">
-              <h3>Solar Installation</h3>
-              <div>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-              </div>
-              <p>Professional solar panel installation ensuring efficient energy solutions and sustainable savings for
-                your home.</p>
-            </div>
-          </div>
-
-          <div class="startoff_price">
-            <h4>Starts from</h4>
-            <p>
-              <s>₦300000</s>
-              <strong>₦270000</strong>
-            </p>
-          </div>
-
-        </div>
+      {%endfor%}
+      {%else%}
+      <div>
+        <h2>No services Yet</h2>
       </div>
-
-      <!-- service three -->
-      <div class="swiper-slide">
-        <div class="service_data">
-          <div class="service-header">
-            <img src="{% static 'Assest/Img/ac2.jpeg' %}" alt="">
-            <div class="discount">10% off</div>
-
-            <div class="header_text">
-              <h3>AC Installation</h3>
-              <div>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-              </div>
-              <p>Expert AC installation to ensure optimal cooling comfort and energy efficiency in your home.</p>
-            </div>
-
-          </div>
-
-          <div class="startoff_price">
-            <h4>Starts from</h4>
-            <p>
-              <s>₦75000</s>
-              <strong>₦62500</strong>
-            </p>
-          </div>
-
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="service_data">
-          <div class="service-header">
-            <img src="{% static 'Assest/Img/electrical-maintenance.jpg' %}" alt="">
-            <div class="discount">10% off</div>
-
-            <div class="header_text">
-              <h3>Maintenance and Oversight</h3>
-              <div>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-              </div>
-              <span>Comprehensive maintenance and oversight services to ensure the smooth operation and longevity of
-                your electrical systems and appliances.</span>
-            </div>
-
-          </div>
-
-          <div class="startoff_price">
-            <h4>Starts from</h4>
-            <p>
-              <s>₦40000</s>
-              <strong>₦36000</strong>
-            </p>
-          </div>
-
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="service_data">
-          <div class="service-header">
-            <img src="{% static 'Assest/Img/electrical-troubleshooting.jpg' %}" alt="">
-            <div class="discount">10% off</div>
-
-            <div class="header_text">
-              <h3>Troubleshooting</h3>
-              <div>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-              </div>
-              <span>Expert troubleshooting services to quickly diagnose and resolve any electrical issues in your home,
-                ensuring safety and functionality</span>
-            </div>
-
-          </div>
-
-          <div class="startoff_price">
-            <h4>Starts from</h4>
-            <p>
-              <s>₦75000</s>
-              <strong>₦62500</strong>
-            </p>
-          </div>
-
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="service_data">
-          <div class="service-header">
-            <img src="{% static 'Assest/Img/wiring5.jpeg' %}" alt="">
-            <div class="discount">10% off</div>
-
-            <div class="header_text">
-              <h3>House Wiring</h3>
-              <div>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-              </div>
-              <span>Professional house wiring services, ensuring safe and efficient electrical connections tailored to
-                your home's needs and specifications</span>
-            </div>
-
-          </div>
-
-          <div class="startoff_price">
-            <h4>Starts from</h4>
-            <p>
-              <s>₦75000</s>
-              <strong>₦62500</strong>
-            </p>
-          </div>
-
-        </div>
-      </div>
+      {%endif%}
     </div>
   </section>
 

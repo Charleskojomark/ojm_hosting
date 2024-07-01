@@ -52,9 +52,11 @@ SUBSCRIPTION_TOTAL_QUOTES = {
 def index(request):
     categories = ServiceCategory.objects.all()[:6]
     advertisements = Advertisement.objects.all()
+    services = Service.objects.all()
     context = {
         'categories': categories,
-        'advertisements': advertisements
+        'advertisements': advertisements,
+        'services':services
     }
 
     if request.user.is_authenticated:
