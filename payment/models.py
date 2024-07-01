@@ -56,8 +56,8 @@ class Payment(models.Model):
     
 class Subscription(models.Model):
     STATUS_CHOICES = [
-        ('Inactive', 'Inactive'),
         ('Active', 'Active'),
+        ('Inactive', 'Inactive'),
         ('Expired', 'Expired'),
     ]
     

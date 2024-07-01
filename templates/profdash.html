@@ -77,10 +77,7 @@
                             <p>Subscription Status</p>
                             {% if subscription %}
                             <div>
-                                <span>{{ subscription.status }} </span>
-                                {% if subscribed %}
-                                <span>{{ used_quotes }}/{{ total_quotes }}</span>
-                                {% elif subscription.name %}
+                                {% if subscription.name %}
                                 <span>{{ subscription.status }} </span>
                                 <span>{{ used_quotes }}/{{ total_quotes }}</span>
                                 {% else %}
