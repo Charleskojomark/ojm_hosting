@@ -419,7 +419,9 @@ img {
     display: flex;
     gap: 1.5rem;
 }
-
+.service-header .rating{
+    color: var(--main-color-one);
+}
 .service-header img {
     width: 130px;
     height: 120px;
