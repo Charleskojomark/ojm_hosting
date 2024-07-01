@@ -122,7 +122,7 @@ def activate(request, uidb64, token):
         user = User.objects.get(pk=uid)
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
-    
+
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
         user.save()
@@ -131,10 +131,12 @@ def activate(request, uidb64, token):
         # Check if the user is an electrician and send the welcome email
         if user.groups.filter(name='electricians').exists():
             subscription, created = Subscription.objects.get_or_create(
-                user=user, defaults={'name': 'free'}
+                user=user, defaults={'name': 'free', 'status': 'Active', 'remaining_quotes': 10}
             )
             if not created:
                 subscription.name = 'free'
+                subscription.status = 'Active'
+                subscription.remaining_quotes = 10
                 subscription.save()
 
             # Prepare the welcome email
@@ -155,6 +157,7 @@ def activate(request, uidb64, token):
         return redirect('ojm_core:index')
     else:
         return HttpResponse('Activation link is invalid!')
+
 
 def login_view(request):
     if request.user.is_authenticated:

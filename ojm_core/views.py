@@ -96,9 +96,7 @@ def prof_dashboard(request):
     profile = get_object_or_404(ElectricianProfile, user=request.user)
     user = request.user
     wallet, created = Wallet.objects.get_or_create(user=user)
-    # subscription = Subscription.objects.filter(user=user).first()
     payments = Payment.objects.filter(user=user,verified=True)
-    # wallet = get_object_or_404(Wallet, user=user)
     profile_pic_form = UpdatePicture(instance=profile)
     business_form = UpdateBusinessInfo(instance=profile)
     location_form = UpdateLocation(instance=profile)
@@ -110,7 +108,6 @@ def prof_dashboard(request):
     user_profile = ElectricianProfile.objects.get(user=request.user)
     id_form = IdentityForm(instance=user)
     subscription, created = Subscription.objects.get_or_create(user=user)
-    # subscription = get_object_or_404(Subscription, user=request.user)
     if subscription.name:
         total_quotes = SUBSCRIPTION_TOTAL_QUOTES.get(subscription.name, 0)
         remaining_quotes = subscription.remaining_quotes
