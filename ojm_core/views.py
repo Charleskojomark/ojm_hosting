@@ -71,6 +71,14 @@ def index(request):
 
     return render(request, 'index.html', context)
 
+def all_services(request):
+    services = Service.objects.all()
+    context = {
+        'services':services
+    }
+    return render(request, 'all_services.html', context)
+    
+
 def dashboard(request):
     if request.user.groups.filter(name='customers').exists():
         return redirect('ojm_core:user_dashboard')

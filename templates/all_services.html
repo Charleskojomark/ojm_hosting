@@ -1,0 +1,44 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'Assest/Img/ojm-log.png'%}" type="image/x-icon" />
+    <title>Service</title>
+    <link rel="stylesheet" href="{% static 'Css/service.css' %}">
+</head>
+<body>
+    <h2>All services</h2>
+    <section>
+        <div class="service-container">
+            {% for service in services %}
+            <a href="{% url 'ojm_core:service_detail' service.id %}">
+                <div class="service">
+                    <span class="discount">
+                        {{ service.discount_percent|floatformat:0 }}% OFF
+                    </span>
+                    <img src="{{ service.image.url }}" alt="{{ service.name }}">
+                    <div class="info">
+                        <div class="name">{{ service.name }}</div>
+                        <div class="price">
+                            <div class="starts-from">
+                                <small>Starts from <br> <s>₦{{ service.price }}</s><br><span>₦{{ service.original_price }}</span></small>
+                            </div>
+                            <div class="book-service">
+                                <input type="submit" value="Book now">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+
+
+
+
+    <script src="{% static 'Js/service.js' %}"></script>
+</body>
+</html>
