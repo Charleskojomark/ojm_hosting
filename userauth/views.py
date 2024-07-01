@@ -54,14 +54,21 @@ def signup(request):
             user.groups.add(customers)
             current_site = get_current_site(request)
             mail_subject = 'Activate your OJM account.'
-            message = render_to_string('verify_email.html', {
+            html_message = render_to_string('activation_email.html', {
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': default_token_generator.make_token(user),
             })
+            
+            # Prepare plain text content (optional)
+            plain_message = strip_tags(html_message)
+            
+            # Send email using EmailMultiAlternatives
             to_email = form.cleaned_data.get('email')
-            send_mail(mail_subject, message, 'Ojm Electrical', [to_email])
+            email = EmailMultiAlternatives(mail_subject, plain_message, 'Ojm Electrical', [to_email])
+            email.attach_alternative(html_message, "text/html")
+            email.send()
             username = form.cleaned_data.get('username')
             messages.success(request, f"Welcome {username}, Please check your email to confirm your address")
             return redirect('ojm_core:index')
@@ -98,14 +105,23 @@ def prof_signup(request):
             user.groups.add(electricians)
             current_site = get_current_site(request)
             mail_subject = 'Activate your OJM account.'
-            message = render_to_string('verify_email.html', {
+            
+            html_message = render_to_string('verify_email.html', {
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': default_token_generator.make_token(user),
             })
+            
+            # Prepare plain text content (optional)
+            plain_message = strip_tags(html_message)
+            
+            # Send email using EmailMultiAlternatives
             to_email = form.cleaned_data.get('email')
-            send_mail(mail_subject, message, 'Ojm Electrical', [to_email])
+            email = EmailMultiAlternatives(mail_subject, plain_message, 'Ojm Electrical', [to_email])
+            email.attach_alternative(html_message, "text/html")
+            email.send()
+            
             username = form.cleaned_data.get('username')
             messages.success(request, f"Welcome {username}, Please check your email to confirm your address")
             return redirect('ojm_core:index')

@@ -76,12 +76,11 @@ class Subscription(models.Model):
     remaining_quotes = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
-        if not self.pk:  # Only update expiry if it's a new subscription
+        if not self.pk:  
             self.expiry = self.calculate_expiry()
         super().save(*args, **kwargs)
 
     def calculate_expiry(self):
-        # logic to calculate expiry based on the subscription name
         if self.name == "1 month":
             return self.created_at + timedelta(days=30)
         elif self.name == "3 months":
