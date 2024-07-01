@@ -78,7 +78,6 @@ class Subscription(models.Model):
     def save(self, *args, **kwargs):
         if not self.pk:  # Only update expiry if it's a new subscription
             self.expiry = self.calculate_expiry()
-            self.status = 'Inactive'  # Set status to active when creating a new subscription
         super().save(*args, **kwargs)
 
     def calculate_expiry(self):
@@ -93,7 +92,7 @@ class Subscription(models.Model):
     
     def check_and_update_expiry(self):
         if timezone.now() > self.expiry:
-            self.status = 'expired'
+            self.status = 'Expired'
             self.save()
             return True
         return False
