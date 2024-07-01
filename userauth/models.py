@@ -63,6 +63,15 @@ NIGERIAN_STATES = [
         ('none','Not a Nigerian')
     ]
 
+
+RATINGS = (
+    (1, "★☆☆☆☆"),
+    (2, "★★☆☆☆"),
+    (3, "★★★☆☆"),
+    (4, "★★★★☆"),
+    (5, "★★★★★"),
+)
+
 def user_directory_path(instance, filename):
     return 'user_{0}/{1}'.format(instance.user.id, filename)
 
@@ -103,6 +112,7 @@ class ElectricianProfile(models.Model):
     id_verified = models.BooleanField(default=False)
     cac = models.CharField(max_length=200, blank=True, null=True)
     
+    rating = models.IntegerField(choices=RATINGS, default=None)
     
     class Meta:
         verbose_name_plural = "Electricians"

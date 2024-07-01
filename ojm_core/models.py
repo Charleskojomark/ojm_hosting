@@ -1,6 +1,17 @@
 from django.db import models
 from userauth.models import User
 # Create your models here.
+
+
+RATINGS = (
+    (1, "★☆☆☆☆"),
+    (2, "★★☆☆☆"),
+    (3, "★★★☆☆"),
+    (4, "★★★★☆"),
+    (5, "★★★★★"),
+)
+
+
 class ServiceRequest(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     query = models.CharField(max_length=255)
@@ -92,6 +103,7 @@ class Service(models.Model):
     whats_included = models.TextField()
     whats_excluded = models.TextField()
     note_to_customer = models.TextField()
+    rating = models.IntegerField(choices=RATINGS, default=None)
 
     def discount_percent(self):
         if self.original_price > 0:
@@ -113,3 +125,13 @@ class Advertisement(models.Model):
 
     def __str__(self):
         return self.name
+    
+    
+class CustomerReviews(models.Model):
+    customer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    customer_image = models.ImageField(upload_to='customer_review_images/')
+    review = models.TextField()
+    rating = models.IntegerField(choices=RATINGS, default=None)
+    date = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        verbose_name_plural = "Customer Reviews"
