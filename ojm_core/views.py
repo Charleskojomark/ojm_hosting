@@ -14,7 +14,7 @@ from django.contrib.auth.models import Group
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
 from django.http import JsonResponse
-from .models import ServiceRequest, Notification, Quote,Service,ServiceCategory,ServiceSubCategory,Advertisement
+from .models import ServiceRequest, Notification, Quote,Service,ServiceCategory,ServiceSubCategory,Advertisement,CustomerReviews
 from django.core.exceptions import ValidationError
 from datetime import datetime
 from payment.models import Wallet,Payment,Subscription
@@ -53,10 +53,12 @@ def index(request):
     categories = ServiceCategory.objects.all()[:6]
     advertisements = Advertisement.objects.all()
     services = Service.objects.all()
+    customer_reviews = CustomerReviews.objects.all()
     context = {
         'categories': categories,
         'advertisements': advertisements,
-        'services':services
+        'services':services,
+        'reviews':customer_reviews,
     }
 
     if request.user.is_authenticated:

@@ -368,76 +368,34 @@
     <div class="testimonial_container swiper">
       <div class="swiper-wrapper">
         <!-- Testimonial section 1 -->
+        {%if reviews%}
+        {%for review in reviews%}
         <div class="testimonial swiper-slide">
           <div class="testimonial-cards">
             <div class="testifier">
-              <img src="{% static 'Assest/Img/custom.png' %}" alt="">
+              <img src="{{ review.customer_image.url }}" alt="{{ review.customer.username }}">
               <div class="desc">
-                <h2>John Doe</h2>
+                <h2>{{review.customer.username}}</h2>
                 <h4>Web Developer</h4>
               </div>
             </div>
             <div class="testimony">
-              <p>Lorem ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet consectetur Lorem ipsum dolor sit
-                amet consecteturLorem ipsum dolor sit amet consectetur</p>
+              <p>{{review.review}}</p>
               <div class="rating">
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
+                {{review.get_rating_display}}
               </div>
             </div>
           </div>
         </div>
-        <!-- Testimonial section 2-->
-        <div class="testimonial swiper-slide">
-          <div class="testimonial-cards">
-            <div class="testifier">
-              <img src="{% static 'Assest/Img/custom.png' %}" alt="">
-              <div class="desc">
-                <h2>John Doe</h2>
-                <h4>Web Developer</h4>
-              </div>
-            </div>
-            <div class="testimony">
-              <p>Lorem ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet consectetur Lorem ipsum dolor sit
-                amet consecteturLorem ipsum dolor sit amet consectetur</p>
-              <div class="rating">
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-              </div>
-            </div>
-          </div>
+        {%endfor%}
+        {%else%}
+        <div>
+          <h2>No Reviews Yet</h2>
         </div>
-        <!-- Testimonial section 3-->
-
-        <div class="testimonial swiper-slide">
-          <div class="testimonial-cards">
-            <div class="testifier">
-              <img src="{% static 'Assest/Img/custom.png' %}" alt="">
-              <div class="desc">
-                <h2>John Doe</h2>
-                <h4>Web Developer</h4>
-              </div>
-            </div>
-            <div class="testimony">
-              <p>Lorem ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet consectetur Lorem ipsum dolor sit
-                amet consecteturLorem ipsum dolor sit amet consectetur</p>
-              <div class="rating">
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-                <i class="uil uil-star service_icon-star"></i>
-              </div>
-            </div>
-          </div>
-
-        </div>
+        {%endif%}
+        
+      </div>
+    </div>
   </section>
 
   <!-- footer section  -->

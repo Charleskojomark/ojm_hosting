@@ -130,8 +130,9 @@ class Advertisement(models.Model):
 class CustomerReviews(models.Model):
     customer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     customer_image = models.ImageField(upload_to='customer_review_images/')
+    customer_occupation = models.CharField(max_length=100,null=True,blank=True)
     review = models.TextField()
-    rating = models.IntegerField(choices=RATINGS, default=None)
+    rating = models.IntegerField(choices=RATINGS,default=None)
     date = models.DateTimeField(auto_now_add=True)
     class Meta:
         verbose_name_plural = "Customer Reviews"
