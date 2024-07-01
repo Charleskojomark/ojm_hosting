@@ -128,19 +128,15 @@ def activate(request, uidb64, token):
         user.save()
         login(request, user)
 
-        
-        subscription = None
-        subscribed = False
         # Check if the user is an electrician and send the welcome email
         if user.groups.filter(name='electricians').exists():
             subscription, created = Subscription.objects.get_or_create(
-                user=user, defaults={'remaining_quotes': 10, 'status': 'Active'}
+                user=user, defaults={'name': 'free'}
             )
             if not created:
-                subscription.remaining_quotes = 10
-                subscription.status = 'Active'
+                subscription.name = 'free'
                 subscription.save()
-            subscribed = subscription.status == "Active"
+
             # Prepare the welcome email
             current_site = get_current_site(request)
             mail_subject = 'Welcome to OJM Electrical'

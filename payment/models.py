@@ -62,6 +62,7 @@ class Subscription(models.Model):
     ]
     
     DURATION_CHOICES = [
+        ("free","free"),
         ("1 month", "1 month"),
         ("3 months", "3 months"),
         ("6 months", "6 months"),
