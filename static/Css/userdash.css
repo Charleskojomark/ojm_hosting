@@ -48,7 +48,7 @@ a {
 ul {
     list-style: none;
 }
-.newflex{
+.topflex{
     display: flex;
     gap: .2rem;
 }
