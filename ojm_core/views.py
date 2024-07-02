@@ -321,7 +321,8 @@ def post_request(request):
             'readiness':readiness
         }
         ServiceRequest.objects.create(**request_data)
-
+        send_job_alert(request, service_request.id)
+        
         # Display success message
         messages.success(request, f"Welcome {username}, Your request was posted, Check your mail to activate your account")
         return redirect('ojm_core:index')
@@ -359,6 +360,8 @@ def user_post(request):
         }
         ServiceRequest.objects.create(**request_data)
 
+        send_job_alert(request, service_request.id)
+        
         messages.success(request, f"Your request has been posted,You will be contacted immediately")
         return redirect('ojm_core:index')
 
