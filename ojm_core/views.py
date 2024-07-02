@@ -25,6 +25,8 @@ from chatapp.models import Conversation, Message
 
 from django.db.models import Count
 
+from django.utils.html import strip_tags
+from django.core.mail import EmailMultiAlternatives
 
 from django.conf import settings
 from pusher import Pusher
@@ -220,6 +222,29 @@ def service_detail(request, service_id):
     return render(request, 'single.html', context)
 
 
+
+
+def send_job_alert(request, job_id):
+    electricians = Group.objects.get(name='electricians').user_set.all()
+    current_site = get_current_site(request)
+    domain = current_site.domain
+    job_url = f'http://{domain}{reverse("ojm_core:request_detail", args=[job_id])}'
+    mail_subject = 'Job Alert.'
+
+    for electrician in electricians:
+        current_site = get_current_site(request)
+            
+        html_message = render_to_string('job_alert_email.html', {
+            'job_url':job_url,
+        })
+        
+        plain_message = strip_tags(html_message)
+        
+        # Send email using EmailMultiAlternatives
+        to_email = electrician.user.email
+        email = EmailMultiAlternatives(mail_subject, plain_message, 'Ojm Electrical', [to_email])
+        email.attach_alternative(html_message, "text/html")
+        email.send()
 
 
 
