@@ -320,7 +320,7 @@ def post_request(request):
             'start_date': start_date,
             'readiness':readiness
         }
-        ServiceRequest.objects.create(**request_data)
+        service_request = ServiceRequest.objects.create(**request_data)
         send_job_alert(request, service_request.id)
         
         # Display success message
@@ -358,7 +358,7 @@ def user_post(request):
             'start_date': start_date,
             'readiness':readiness
         }
-        ServiceRequest.objects.create(**request_data)
+        service_request = ServiceRequest.objects.create(**request_data)
 
         send_job_alert(request, service_request.id)
         
