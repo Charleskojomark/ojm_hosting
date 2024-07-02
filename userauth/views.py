@@ -342,6 +342,7 @@ def update_qualification(request):
     return render(request, 'profdash.html', context)
 
 
+@login_required
 def update_user(request):
     user = request.user
     if request.method == 'POST':
@@ -355,6 +356,7 @@ def update_user(request):
     
     return render(request, 'profdash.html', {'form': form})
 
+@login_required
 def change_password(request):
     user = request.user
     if request.method == 'POST':
@@ -378,6 +380,7 @@ def change_password(request):
     
 
 # Customer Updates
+@login_required
 def update_user(request):
     user = request.user
     if request.method == 'POST':
@@ -430,11 +433,13 @@ def update_customer_picture(request):
     return render(request, 'userdash.html',context)
 
 
+@login_required
 def id_verification(request):
     user = request.user
     electrician = ElectricianProfile.objects.filter(user=user)
     
 
+@login_required
 def cac_verification(request):
     user = request.user
     electrician = ElectricianProfile.objects.filter(user=user)
@@ -445,6 +450,7 @@ def cac_verification(request):
         return redirect('ojm_core:dashboard')
     return render(request, 'profdash.html')
 
+@login_required
 def id_verification(request):
     user = request.user
     if request.method == 'POST':

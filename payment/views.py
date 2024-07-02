@@ -24,6 +24,7 @@ pusher = Pusher(
 )
 
 
+@login_required
 def pay(request):
     plan1 = Subscription.objects.filter(name="1 month")
     plan2 = Subscription.objects.filter(name="3 months")
@@ -51,6 +52,7 @@ def pay(request):
     return render(request, 'pay.html', context)
 
 
+@login_required
 def initiate_payment(request):
     if request.method == "POST":
         amount = request.POST['amount']
@@ -76,6 +78,7 @@ def initiate_payment(request):
 
     return render(request, 'pay.html')
 
+@login_required
 def verify_payment(request, ref):
     payment, created = Payment.objects.get_or_create(ref=ref)
     payment.verified = True
@@ -83,7 +86,7 @@ def verify_payment(request, ref):
     messages.success(request, "Successful transaction")
     return redirect('ojm_core:dashboard')
 
-
+@login_required
 @csrf_exempt
 def paystack_webhook(request):
     if request.method == 'POST':
@@ -158,6 +161,7 @@ def subscription_detail(request):
 
 
 
+@login_required
 def web(request):
     
     user = request.user

@@ -75,6 +75,7 @@ def index(request):
 
     return render(request, 'index.html', context)
 
+
 def all_services(request):
     services = Service.objects.all()
     context = {
