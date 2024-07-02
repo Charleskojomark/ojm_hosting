@@ -142,7 +142,7 @@
     <section class="category_section">
       <div class="category_header">
         <h2>All Categories</h2>
-        <a href="{%url 'ojm_core:categories'%}?category=category2" class="cart_link">View All</a>
+        <a href="{%url 'ojm_core:categories'%}" class="cart_link">View All</a>
       </div>
       <div class="categories">
         {%if categories%}
@@ -434,7 +434,9 @@
       <div>
         <h3>Category</h3>
         <ul>
-          <li><a href="">Electrical wiring</a></li>
+          {%for c in categories%}
+          <li><a href="{%url 'ojm_core:categories'%}?category={{ category.name }}">{{category.name}}</a></li>
+          {%endfor%}
         </ul>
       </div>
 
@@ -466,12 +468,12 @@
         <a href="https://instagram.com" target="_blank" class="footer_social">
           <i class="uil uil-instagram"></i>
         </a>
-        <a href="https://whatsapp.com" target="_blank" class="footer_social">
+        <a href="https://api.whatsapp.com/send?phone=2348109494805&text=Hello!%20OJM;%20I%20need%E2%80%A6%E2%80%A6%E2%80%A6%E2%80%A6%E2%80%" target="_blank" class="footer_social">
           <i class="uil uil-whatsapp"></i>
         </a>
       </div>
 
-      <a href="" class="payment">
+      <a href="{% url 'payment:pay' %}" class="payment">
         <img src="{% static 'Assest/Img/pay.png' %}" alt="">
       </a>
     </div>
