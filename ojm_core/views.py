@@ -225,7 +225,7 @@ def service_detail(request, service_id):
 
 
 def send_job_alert(request, job_id):
-    electricians = Group.objects.get(name='electricians').user_set.all()
+    electricians = ElectricianProfile.objects.all() 
     current_site = get_current_site(request)
     domain = current_site.domain
     job_url = f'http://{domain}{reverse("ojm_core:request_detail", args=[job_id])}'
