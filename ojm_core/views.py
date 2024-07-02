@@ -54,11 +54,13 @@ def index(request):
     advertisements = Advertisement.objects.all()
     services = Service.objects.all()
     customer_reviews = CustomerReviews.objects.all()
+    electricians = ElectricianProfile.objects.all() 
     context = {
         'categories': categories,
         'advertisements': advertisements,
         'services':services,
         'reviews':customer_reviews,
+        'electricians':electricians,
     }
 
     if request.user.is_authenticated:

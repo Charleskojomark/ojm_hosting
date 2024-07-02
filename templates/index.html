@@ -236,74 +236,27 @@
     </div>
     <div class="swiper-wrapper">
       <!-- Expert one -->
+      {%for electrician in electricians%}
       <div class="swiper-slide">
         <div class="expert_data">
 
-          <img src="{% static 'Assest/Img/expert1.jpg' %}" alt="">
+            <img src="{{ electrician.profile_picture.url }}" alt="{{ electrician.business_name }}">
 
           <div class="expert_works">
-            <h3>Thomson Franklin Group</h3>
+            <h3>{{electrician.business_name}}</h3>
             <div>
-              <i class="uil uil-star service_icon-star"></i>
-              <i class="uil uil-star service_icon-star"></i>
-              <i class="uil uil-star service_icon-star"></i>
-              <i class="uil uil-star service_icon-star"></i>
-              <i class="uil uil-star service_icon-star"></i>
+              {{ electrician.get_rating_display }}
             </div>
-            <p>Electric Wiring, Electronic Repairs, Repair services</p>
+            <p>{{electrician.service_description}}</p>
 
-            <h3><i class="uil uil-map-marker"></i> Nobis commodi dolore</h3>
+            <h3><i class="uil uil-map-marker"></i>{{electrician.country}},{{electrician.state}},{{electrician.city}}</h3>
 
 
           </div>
         </div>
       </div>
+      {%endfor%}
 
-      <!-- Expert two -->
-      <div class="swiper-slide">
-        <div class="expert_data">
-
-          <img src="{% static 'Assest/Img/expert2.jpg' %}" alt="">
-          <div class="expert_works">
-            <h3>Thomson Franklin Group</h3>
-            <div>
-              <i class="uil uil-star service_icon-star"></i>
-              <i class="uil uil-star service_icon-star"></i>
-              <i class="uil uil-star service_icon-star"></i>
-              <i class="uil uil-star service_icon-star"></i>
-              <i class="uil uil-star service_icon-star"></i>
-            </div>
-
-            <p>Electric Wiring, Electronic Repairs, Repair services</p>
-
-            <h3><i class="uil uil-map-marker"></i> Nobis commodi dolore</h3>
-
-
-          </div>
-        </div>
-      </div>
-
-      <!-- Expert three -->
-      <div class="swiper-slide">
-        <div class="expert_data">
-
-          <img src="{% static 'Assest/Img/expert3.png' %}" alt="">
-          <div class="expert_works">
-            <h3>Thomson Franklin Group</h3>
-            <div class>
-              <i class="uil uil-star service_icon-star"></i>
-              <i class="uil uil-star service_icon-star"></i>
-              <i class="uil uil-star service_icon-star"></i>
-              <i class="uil uil-star service_icon-star"></i>
-              <i class="uil uil-star service_icon-star"></i>
-            </div>
-            <p>Electric Wiring, Electronic Repairs, Repair services</p>
-
-            <h3><i class="uil uil-map-marker"></i> Nobis commodi dolore</h3>
-
-          </div>
-        </div>
-      </div>
     </div>
 
   </section>
@@ -434,7 +387,7 @@
       <div>
         <h3>Category</h3>
         <ul>
-          {%for c in categories%}
+          {%for category in categories%}
           <li><a href="{%url 'ojm_core:categories'%}?category={{ category.name }}">{{category.name}}</a></li>
           {%endfor%}
         </ul>
