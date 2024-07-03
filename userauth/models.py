@@ -112,7 +112,7 @@ class ElectricianProfile(models.Model):
     id_verified = models.BooleanField(default=False)
     cac = models.CharField(max_length=200, blank=True, null=True)
     
-    rating = models.IntegerField(choices=RATINGS, default=None)
+    rating = models.IntegerField(choices=RATINGS, blank=True,null=True)
     
     class Meta:
         verbose_name_plural = "Electricians"
