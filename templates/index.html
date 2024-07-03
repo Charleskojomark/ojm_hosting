@@ -239,8 +239,11 @@
       {%for electrician in electricians%}
       <div class="swiper-slide">
         <div class="expert_data">
-
-            <img src="{{ electrician.profile_picture.url }}" alt="{{ electrician.business_name }}">
+          {% if electrician.profile_picture %}
+          <img src="{{ electrician.profile_picture.url }}" alt="{{ electrician.business_name }}">
+          {% else %}
+          <img src="{% static 'Assest/Img/ojmprofilephoto.jpg' %}" alt="Profile photo">
+          {% endif %}
 
           <div class="expert_works">
             <h3>{{electrician.business_name}}</h3>
