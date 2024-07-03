@@ -246,6 +246,7 @@ def send_job_alert(request, job_id):
         email.attach_alternative(html_message, "text/html")
         email.send()
 
+    
 
 
 
@@ -490,6 +491,27 @@ def send_quote(request, request_id):
                 notification_type='quote'
             )
 
+            # Current site and domain
+            current_site = get_current_site(request)
+            domain = current_site.domain
+            quote_url = f'http://{domain}{reverse("chatapp:chat", args=[request.user.username])}'
+            mail_subject = 'Job Request Received.'
+
+            html_message = render_to_string('quote_email.html', {
+                'quote_url': quote_url,
+            })
+            plain_message = strip_tags(html_message)
+
+            # Send email using EmailMultiAlternatives
+            to_email = recipient_user.email
+            email = EmailMultiAlternatives(mail_subject, plain_message, 'Ojm Electrical', [to_email])
+            email.attach_alternative(html_message, "text/html")
+            try:
+                email.send()
+            except Exception as e:
+                messages.error(request, f"An error occurred while sending the email: {str(e)}")
+                return JsonResponse({'status': 'error', 'message': str(e), 'redirect_url': reverse('ojm_core:dashboard')})
+
             # Find or create a conversation between the users
             conversation = Conversation.objects.filter(participants=user).filter(participants=recipient_user).first()
             if not conversation:
@@ -510,7 +532,7 @@ def send_quote(request, request_id):
             })
 
             messages.success(request, "Your quote was successfully sent. Check your messages to follow up with the customer.")
-            return JsonResponse({'status': 'success', 'message': 'Quote sent', 'redirect_url': reverse('ojm_core:customer_info',kwargs={'request_id': request_obj.id})})
+            return JsonResponse({'status': 'success', 'message': 'Quote sent', 'redirect_url': reverse('ojm_core:customer_info', kwargs={'request_id': request_obj.id})})
 
         except Exception as e:
             messages.error(request, f"An error occurred: {str(e)}")
@@ -518,7 +540,6 @@ def send_quote(request, request_id):
 
     messages.error(request, "Invalid request method.")
     return JsonResponse({'status': 'error', 'message': 'Invalid request method', 'redirect_url': reverse('ojm_core:dashboard')})
-
 
 
 @login_required
