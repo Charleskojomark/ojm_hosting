@@ -93,8 +93,8 @@ class ServiceSubCategory(models.Model):
 class Service(models.Model):
     subcategory = models.ForeignKey(ServiceSubCategory, related_name='services', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    original_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    price = models.DecimalField(max_digits=10, decimal_places=2,blank=True,null=True)
+    original_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00,blank=True,null=True)
     short_description = models.TextField()
     recommended = models.BooleanField(default=False)
     trending = models.BooleanField(default=False)
