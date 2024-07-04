@@ -206,7 +206,7 @@
               <div class="rating">
                 {{ service.get_rating_display }}
               </div>
-              <span>{{ service.short_description }}</span>
+              <span>{{ service.short_description|slice:":30" }}</span>
             </div>
           </div>
           <div class="startoff_price">
