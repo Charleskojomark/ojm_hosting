@@ -21,6 +21,7 @@ class ServiceRequest(models.Model):
     readiness = models.CharField(max_length=20, blank=True, null=True)
     start_date = models.DateField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    pros_contacted = models.IntegerField(default=0, null=True,blank=True)
     class Meta:
         ordering = ('-created_at',)
     def __str__(self):

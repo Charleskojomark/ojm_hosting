@@ -465,6 +465,13 @@ def send_quote(request, request_id):
                 messages.error(request, "Insufficient funds or no active subscription")
                 return JsonResponse({'status': 'error', 'message': 'Insufficient funds or no active subscription', 'redirect_url': reverse('ojm_core:dashboard')})
 
+            existing_quote = Quote.objects.filter(request=request_obj, electrician=user).exists()
+
+            if existing_quote:
+                # Increment pros_contacted for this request
+                request_obj.pros_contacted += 1
+                request_obj.save()
+            
             # Create the quote
             quote = Quote.objects.create(
                 request=request_obj,
