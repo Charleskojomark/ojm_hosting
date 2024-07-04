@@ -66,8 +66,7 @@ h2,h3{
 }
 .container h2{
     display: flex;
-    gap: 1rem;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 }
 .slider {
