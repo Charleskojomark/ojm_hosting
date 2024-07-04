@@ -99,9 +99,7 @@ class Service(models.Model):
     trending = models.BooleanField(default=False)
     image = models.ImageField(upload_to='service_images/')
     cover_image = models.ImageField(upload_to='cover_images/')
-    need_the_service = models.TextField()
-    whats_included = models.TextField()
-    whats_excluded = models.TextField()
+    
     note_to_customer = models.TextField()
     rating = models.IntegerField(choices=RATINGS, default=None)
 
