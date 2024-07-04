@@ -15,7 +15,7 @@
 
 
     <div class="container">
-        <h2>Service Categories <a href="{%url 'ojm_core:index'%}">Home</a></h2>
+        <h2><span>Service Categories<span> <a href="{%url 'ojm_core:index'%}">Back Home</a></h2>
         <div class="slider">
             {% for category in categories %}
             <div class="card" onclick="showSubCategory(this)" data-category="{{ category.name }}">
