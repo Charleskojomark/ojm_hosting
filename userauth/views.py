@@ -152,7 +152,7 @@ def activate(request, uidb64, token):
                 subscription.name = 'free'
                 subscription.status = 'Active'
                 subscription.remaining_quotes = 10
-                subscription.expiry = datetime.now() + timedelta(days=30)
+                subscription.expiry = datetime.now() + timedelta(days=365)
                 subscription.save()
             except Subscription.DoesNotExist:
                 Subscription.objects.create(

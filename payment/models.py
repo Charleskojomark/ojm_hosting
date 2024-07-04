@@ -81,6 +81,8 @@ class Subscription(models.Model):
         super().save(*args, **kwargs)
 
     def calculate_expiry(self):
+        if self.name == "free":
+            return self.created_at + timedelta(days=365)
         if self.name == "1 month":
             return self.created_at + timedelta(days=30)
         elif self.name == "3 months":
