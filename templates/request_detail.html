@@ -50,8 +50,16 @@
                             <p>Pros Contacted</p>
                         </div>
                         <div class="request-expiry">
-                            <p>1h 56m</p>
-                            <p>request expires</p>
+                            {% if req.created_at %}
+                            {% with expiry_time=req.created_at|add:timedelta(hours=36) %}
+                                {% with remaining_time=expiry_time|timeuntil %}
+                                    <p>{{ remaining_time }}</p>
+                                    <p>request expires</p>
+                                {% endwith %}
+                            {% endwith %}
+                            {% else %}
+                                <p>Not specified</p>
+                            {% endif %}
                         </div>
                         <div class="cost-quote">
                             {%if subscribed%}
