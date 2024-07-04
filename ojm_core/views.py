@@ -438,7 +438,7 @@ def send_quote(request, request_id):
 
     if not electrician_profile.id_verified:
         messages.error(request, "You cannot send a quote without verifying your ID. Visit settings to verify your ID.")
-        return JsonResponse({'status': 'error', 'message': 'ID not verified', 'redirect_url': reverse('ojm_core:settings')})
+        return JsonResponse({'status': 'error', 'message': 'ID not verified', 'redirect_url': reverse('ojm_core:dashboard')})
 
     if request.method == 'POST':
         try:
