@@ -601,6 +601,8 @@ def about(request):
 def faq(request):
     return render(request, 'faq.html')
 
+def blog(request):
+    return render(request, 'blog.html')
 
 def custom_404(request, exception):
     return render(request, '404.html', status=404)

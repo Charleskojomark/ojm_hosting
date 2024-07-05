@@ -1,0 +1,151 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <title>Blog - OJMElectrical</title>
+  <style>
+    /* Base styles */
+    :root {
+        --main-color-one: rgb(243, 182, 18);
+        --main-color-two: rgb(22, 31, 59);
+    }
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background-color: #fff;
+      color: #222;
+      margin: 0;
+      padding: 0;
+    }
+
+    header{
+        background-color: var(--main-color-two);
+        color: white;
+    }
+    footer {
+        background-color: var(--main-color-two);
+        color: white;
+        text-align: center;
+        padding: 5px 0px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .blog-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .blog-header h1 {
+      color: rgb(22, 31, 59);
+      font-size: 2.5rem;
+    }
+
+    .blog-post {
+      margin-bottom: 40px;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease-in-out;
+    }
+
+    .blog-post:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .blog-post h2 {
+      color: rgb(22, 31, 59);
+      margin-top: 0;
+    }
+
+    .blog-post .meta {
+      color: #777;
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+    }
+
+    .blog-post .content-preview {
+      color: #333;
+    }
+
+    .read-more {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      color: #fff;
+      background-color: rgb(243, 182, 18);
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .read-more:hover {
+      background-color: rgb(22, 31, 59);
+    }
+    a {
+        color: var(--main-color-one);
+    }
+
+    /* Media queries for responsiveness */
+    @media (max-width: 768px) {
+      .container {
+        padding: 10px;
+      }
+
+      .blog-header h1 {
+        font-size: 2rem;
+      }
+
+      .blog-post h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+    <header style="display: flex; justify-content: center; gap: 20px;">
+        <h2><a href="{%url 'ojm_core:index'%}"><i class="fa fa-home"></i></a></h2>
+        <h2>Ojm Electrical Blog</h2>
+    </header>
+  <div class="container">
+    
+    <div class="blog-post">
+      <h2>Understanding Electrical Safety</h2>
+      <div class="meta">Published on January 1, 2024 by John Doe</div>
+      <div class="content-preview">
+        <p>Electrical safety is crucial in every home and workplace. In this post, we explore the basics of electrical safety, including common hazards and tips for preventing accidents...</p>
+      </div>
+      <a href="#" class="read-more">Read More</a>
+    </div>
+    <div class="blog-post">
+      <h2>Top 5 Electrical Upgrades for Your Home</h2>
+      <div class="meta">Published on February 15, 2024 by Jane Smith</div>
+      <div class="content-preview">
+        <p>Upgrading your home's electrical system can enhance safety and increase efficiency. Here are the top 5 electrical upgrades every homeowner should consider...</p>
+      </div>
+      <a href="#" class="read-more">Read More</a>
+    </div>
+    <div class="blog-post">
+      <h2>How to Choose the Right Electrician</h2>
+      <div class="meta">Published on March 10, 2024 by Mark Brown</div>
+      <div class="content-preview">
+        <p>Choosing the right electrician is essential for any electrical work. In this guide, we provide tips on what to look for when hiring an electrician, ensuring quality and reliability...</p>
+      </div>
+      <a href="#" class="read-more">Read More</a>
+    </div>
+  </div>
+  <footer>
+    <p>&copy; ojm electrical <script>document.write(new Date().getFullYear())</script>. All rights Reserved</p>
+</footer>
+</body>
+
+</html>
