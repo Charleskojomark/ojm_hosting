@@ -399,9 +399,14 @@ def request_detail(request, request_id):
     # Get the subscription details
     expiry_time = req.created_at + timedelta(hours=36)
     remaining_time = expiry_time - timezone.now()
-    days = remaining_time.days
-    hours, remainder = divmod(remaining_time.seconds, 3600)
-    minutes, _ = divmod(remainder, 60)
+    expired = remaining_time.total_seconds() < 0
+    if expired:
+        days, hours, minutes = 0, 0, 0
+    else:
+        days = remaining_time.days
+        hours, remainder = divmod(remaining_time.seconds, 3600)
+        minutes, _ = divmod(remainder, 60)
+
     subscription = get_object_or_404(Subscription, user=request.user)
     total_quotes = SUBSCRIPTION_TOTAL_QUOTES.get(subscription.name, 0)
     remaining_quotes = subscription.remaining_quotes
@@ -419,6 +424,7 @@ def request_detail(request, request_id):
         'days': days,
         'hours': hours,
         'minutes': minutes,
+        'expired': expired,
     }
 
     return render(request, 'request_detail.html', context)
