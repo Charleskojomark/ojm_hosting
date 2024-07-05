@@ -51,7 +51,13 @@
                         </div>
                         <div class="request-expiry">
                             {% if req.created_at %}
-                                <p>{{ remaining_time }}</p>
+                                <p>
+                                    {% if days > 0 %}
+                                        {{ days }} day{{ days|pluralize }}, 
+                                    {% endif %}
+                                    {{ hours }} hour{{ hours|pluralize }}, 
+                                    {{ minutes }} minute{{ minutes|pluralize }}
+                                </p>
                                 <p>request expires</p>
                             {% else %}
                                 <p>Not specified</p>
