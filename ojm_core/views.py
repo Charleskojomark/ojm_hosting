@@ -572,14 +572,15 @@ def get_notifications(request):
     user = request.user
     notifications = Notification.objects.filter(user=user)
     count = Notification.objects.filter(user=user).count()
-    chat = notifications.notification_type == 'chat'
+    chat_notifications = notifications.filter(notification_type='chat')
+
     # Update notifications to read=True
     notifications.update(read=True)
 
     context = {
         'notifications': notifications,
         'count':count,
-        'chat':chat,
+        'chat_notifications': chat_notifications.exists(),
     }
     return render(request, 'notifications.html', context)
 

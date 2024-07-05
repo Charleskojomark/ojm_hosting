@@ -96,11 +96,11 @@
                 {% for notification in notifications %}
                 <div class="notification">
                     <i class="fas fa-bell icon"></i>
-                    {%if chat%}
-                    <a href="{%url 'chatapp:messages'%}"><p>{{ notification.message }}</p></a>
-                    {%else%}
-                    <p>{{ notification.message }}</p>
-                    {%endif%}
+                    {% if notification.notification_type == 'chat' %}
+                        <a href="{% url 'chatapp:messages' %}"><p>{{ notification.message }}</p></a>
+                    {% else %}
+                        <p>{{ notification.message }}</p>
+                    {% endif %}
                     <small>{{ notification.created_at }}</small>
                     <hr>
                 </div>
