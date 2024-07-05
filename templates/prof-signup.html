@@ -255,8 +255,10 @@
         <h3>Company</h3>
         <ul>
           <li><a href="">FAQ</a></li>
-          <li><a href="https://bit.ly/contact_ojm">Contact</a></li>
+          <li><a href="https://api.whatsapp.com/send?phone=2348109494805&text=Hello!%20OJM;%20I%20need%E2%80%A6%E2%80%A6%E2%80%A6%E2%80%A6%E2%80%
+">Contact Us</a></li>
           <li><a href="">About us</a></li>
+          <li><a href="">Blog</a></li>
         </ul>
       </div>
 
@@ -271,7 +273,9 @@
       <div>
         <h3>Category</h3>
         <ul>
-          <li><a href="">Electrical wiring</a></li>
+          {%for category in categories%}
+          <li><a href="{%url 'ojm_core:categories'%}?category={{ category.name }}">{{category.name}}</a></li>
+          {%endfor%}
         </ul>
       </div>
 
@@ -294,21 +298,28 @@
 
 
       <div class="footer_social">
-        <a href="https://facebook.com" target="_blank" class="footer_social">
+        <a href="https://www.facebook.com/Ojmelectricalcompany" target="_blank" class="footer_social">
           <i class="uil uil-facebook-f"></i>
         </a>
-        <a href="https://twitter.com" target="_blank" class="footer_social">
+        <a href="https://x.com/ojmelectrical" target="_blank" class="footer_social">
           <i class="uil uil-twitter-alt"></i>
         </a>
-        <a href="https://instagram.com" target="_blank" class="footer_social">
+        <a href="https://www.instagram.com/ojmelectrical" target="_blank" class="footer_social">
           <i class="uil uil-instagram"></i>
         </a>
-        <a href="https://whatsapp.com" target="_blank" class="footer_social">
+        <a href="https://api.whatsapp.com/send?phone=2348109494805&text=Hello!%20OJM;%20I%20need%E2%80%A6%E2%80%A6%E2%80%A6%E2%80%A6%E2%80%" target="_blank" class="footer_social">
           <i class="uil uil-whatsapp"></i>
+        </a>
+        <a href="https://www.youtube.com/@ojmelectricalcompany" target="_blank" class="footer_social">
+          <i class="uil uil-youtube"></i>
+        </a>
+        <a href="http://tiktok.com/@ojmelectrical" target="_blank" class="footer_social">
+          <i class="fab fa-tiktok"></i>
+
         </a>
       </div>
 
-      <a href="" class="payment">
+      <a href="{% url 'payment:pay' %}" class="payment">
         <img src="{% static 'Assest/Img/pay.png' %}" alt="">
       </a>
     </div>
