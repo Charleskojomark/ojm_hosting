@@ -38,6 +38,10 @@ urlpatterns = [
     path('notifications/', views.get_notifications, name='notifications'),
     path('electricians/', ElectricianProfileListView.as_view(), name='electricianprofile_list'),
     path('electricians/<int:pk>/', ElectricianProfileDetailView.as_view(), name='electricianprofile_detail'),
+    
+    path('about-us/', views.about, name='about'),
+    path('faqs/', views.faq, name='faq'),
+    
     path('sitemap.xml', views.sitemap_view, name='sitemap'),
 ]
 

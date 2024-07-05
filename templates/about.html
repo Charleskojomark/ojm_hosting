@@ -1,0 +1,100 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Ojmelectrical</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <meta name="title" content="About Us - Ojmelectrical">
+  <style>
+    /* styles.css */
+    :root {
+        --main-color-one: rgb(243, 182, 18);
+        --main-color-two: rgb(22, 31, 59);
+    }
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #fff; /* Fallback background color */
+    color: #222; /* Fallback text color */
+    margin: 0;
+    padding: 0;
+  }
+  header{
+    background-color: var(--main-color-two);
+    color: white;
+}
+footer {
+    background-color: var(--main-color-two);
+    color: white;
+    text-align: center;
+    padding: 5px 0px;
+}
+a {
+    color: var(--main-color-one);
+}
+  .about_section {
+    background-color: rgb(22, 31, 59);
+    color: rgb(243, 182, 18);
+    padding: 50px 20px;
+    text-align: center;
+  }
+  
+  .about_content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .about_content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .about_content p {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: white;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .about_section {
+      padding: 30px 10px;
+    }
+  
+    .about_content h2 {
+      font-size: 2rem;
+    }
+  
+    .about_content p {
+      font-size: 1rem;
+    }
+  }
+  
+  </style>
+</head>
+
+<body>
+    <header style="display: flex; justify-content: center; gap: 20px;">
+        <h2><a href="{%url 'ojm_core:index'%}"><i class="fa fa-home"></i></a></h2>
+        <h2>Ojm Electrical</h2>
+    </header>
+  <section class="about_section">
+    <div class="about_content">
+      <h2>About Us</h2>
+      <p>Welcome to Ojmelectrical, your go-to platform for connecting with top-notch electricians across Nigeria. We strive to provide seamless access to reliable electrical services, ensuring customer satisfaction and safety.</p>
+      <p>At Ojmelectrical, we prioritize quality, professionalism, and efficiency. Whether you need residential electrical solutions or commercial installations, our platform offers a diverse range of skilled professionals ready to meet your needs.</p>
+      <p>Join us in revolutionizing the electrical service industry, one connection at a time.</p>
+    </div>
+  </section>
+  <footer>
+    <p>&copy; ojm electrical <script>document.write(new Date().getFullYear())</script>. All rights Reserved</p>
+</footer>
+
+  <!-- JavaScript links can be added here if needed -->
+
+</body>
+
+</html>

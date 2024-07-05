@@ -594,6 +594,13 @@ class ElectricianProfileDetailView(DetailView):
     model = ElectricianProfile
     template_name = 'electricianprofile_detail.html'
     context_object_name = 'profile'
+    
+def about(request):
+    return render(request, 'about.html')
+
+def faq(request):
+    return render(request, 'faq.html')
+
 
 def custom_404(request, exception):
     return render(request, '404.html', status=404)
