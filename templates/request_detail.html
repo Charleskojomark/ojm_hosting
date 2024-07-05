@@ -51,12 +51,8 @@
                         </div>
                         <div class="request-expiry">
                             {% if req.created_at %}
-                            {% with expiry_time=req.created_at|add:timedelta(hours=36) %}
-                                {% with remaining_time=expiry_time|timeuntil %}
-                                    <p>{{ remaining_time }}</p>
-                                    <p>request expires</p>
-                                {% endwith %}
-                            {% endwith %}
+                                <p>{{ remaining_time }}</p>
+                                <p>request expires</p>
                             {% else %}
                                 <p>Not specified</p>
                             {% endif %}

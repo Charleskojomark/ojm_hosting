@@ -24,6 +24,8 @@ import logging
 from chatapp.models import Conversation, Message
 
 from django.db.models import Count
+from datetime import timedelta
+
 
 from django.utils.html import strip_tags
 from django.core.mail import EmailMultiAlternatives
@@ -395,6 +397,8 @@ def request_detail(request, request_id):
         user_profile = req.user.electricianprofile
 
     # Get the subscription details
+    expiry_time = req.created_at + timedelta(hours=36)
+    remaining_time = expiry_time - timezone.now()
     subscription = get_object_or_404(Subscription, user=request.user)
     total_quotes = SUBSCRIPTION_TOTAL_QUOTES.get(subscription.name, 0)
     remaining_quotes = subscription.remaining_quotes
@@ -406,7 +410,9 @@ def request_detail(request, request_id):
         'total_quotes': total_quotes,
         'used_quotes': used_quotes,
         'remaining_quotes': remaining_quotes,
-        'subscribed':subscribed
+        'subscribed':subscribed,
+        'expiry_time': expiry_time,
+        'remaining_time': remaining_time,
     }
 
     return render(request, 'request_detail.html', context)
