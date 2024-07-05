@@ -12,6 +12,7 @@ html {
 }
 
 
+
 body {
     margin: 0;
     font-family: lato;
@@ -63,6 +64,7 @@ strong{
 
 a {
     text-decoration: none;
+    color: var(--main-color-two);
 }
 
 ul {
