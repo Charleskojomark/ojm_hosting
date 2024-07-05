@@ -197,6 +197,7 @@
       {%for service in services%}
       <!-- service one -->
       <div class="swiper-slide">
+        <a href="{% url 'ojm_core:service_detail' service.id %}">
         <div class="service_data">
           <div class="service-header">
             <img src="{{ service.image.url }}" alt="{{ service.name }}">
@@ -217,6 +218,7 @@
             </p>
           </div>
         </div>
+        </a>
       </div>
       {%endfor%}
       {%else%}
@@ -286,6 +288,7 @@
       {%for service in services%}
       <!-- trend one -->
       <div class="swiper-slide">
+        <a href="{% url 'ojm_core:service_detail' service.id %}">
         <div class="trend_data">
 
           <div class="Trends">
@@ -298,6 +301,7 @@
             </form>
           </div>
         </div>
+        </a>
       </div>
       {%endfor%}
       {%else%}
