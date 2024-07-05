@@ -1,6 +1,8 @@
 from django.conf.urls import handler404, handler500
 from django.urls import path 
 from . import views
+from .views import ElectricianProfileListView, ElectricianProfileDetailView
+
 from django.contrib.sitemaps.views import sitemap
 from .sitemaps import StaticViewSitemap
 
@@ -34,6 +36,8 @@ urlpatterns = [
     path('request/<int:request_id>/send-quote/', views.send_quote, name='send_quote'),
     path('customer-info/<int:request_id>/',views.customer_info,name="customer_info"),
     path('notifications/', views.get_notifications, name='notifications'),
+    path('electricians/', ElectricianProfileListView.as_view(), name='electricianprofile_list'),
+    path('electricians/<int:pk>/', ElectricianProfileDetailView.as_view(), name='electricianprofile_detail'),
     path('sitemap.xml', views.sitemap_view, name='sitemap'),
 ]
 

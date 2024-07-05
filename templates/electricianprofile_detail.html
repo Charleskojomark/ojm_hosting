@@ -1,0 +1,94 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <title>{{ profile.business_name }}</title>
+    <style>
+        :root {
+            --main-color-one: rgb(243, 182, 18);
+            --main-color-two: rgb(22, 31, 59);
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header{
+            background-color: var(--main-color-two);
+            color: white;
+            border-radius: 20px;
+        }
+        footer {
+            background-color: var(--main-color-two);
+            color: white;
+            text-align: center;
+            border-radius: 10px;
+            padding: 5px 0px;
+        }
+        a {
+            color: var(--main-color-one);
+        }
+        .profile-detail {
+            border: 1px solid var(--main-color-two);
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 5px;
+            background-color: white;
+            max-width: 800px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .profile-detail h1 {
+            color: var(--main-color-one);
+            margin-top: 0;
+        }
+        .profile-detail p {
+            color: var(--main-color-two);
+        }
+        .profile-detail img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .profile-detail a {
+            color: var(--main-color-one);
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header style="display: flex; justify-content: center; gap: 20px;">
+        <h2><a href="{%url 'ojm_core:index'%}"><i class="fa fa-home"></i></a></h2>
+        <h2>{{ profile.business_name }}</h2>
+    </header>
+    <main class="profile-detail">
+        {% if profile.profile_picture %}
+        <img src="{{ profile.profile_picture.url }}" alt="{{ profile.business_name }}">
+        {% else %}
+        <img src="{% static 'Assest/Img/ojmprofilephoto.jpg' %}" alt="Profile photo">
+        {% endif %}
+        <h1>{{ profile.business_name }}</h1>
+        <p><strong>Business Description:</strong>{{ profile.service_description }}</p>
+        <p><strong>Founded Date:</strong> {{ profile.founded_date }}</p>
+        <p><strong>Location:</strong> {{ profile.city }}, {{ profile.state }}, {{ profile.country }}</p>
+        <p><strong>Address:</strong> {{ profile.address }}</p>
+        <p><strong>Number of Employees:</strong> {{ profile.number_of_employees }}</p>
+        <p><strong>Website:</strong> <a href="{{ profile.website_url }}" target="_blank">{{ profile.website_url }}</a></p>
+        <p><strong>Qualification:</strong> {{ profile.qualification }}</p>
+        <p><strong>Prices:</strong> {{ profile.prices }}</p>
+        <p><strong>Rating:</strong> {{ profile.rating }}</p>
+        <p><strong>CAC Verified:</strong> {{ profile.cac_verified }}</p>
+        <p><strong>ID Verified:</strong> {{ profile.id_verified }}</p>
+    </main>
+    <footer>
+        <p>&copy; ojm electrical <script>document.write(new Date().getFullYear())</script>. All rights Reserved</p>
+    </footer>
+</body>
+</html>

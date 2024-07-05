@@ -236,12 +236,13 @@
   <section class="expert_section swiper">
     <div class="expert_heading">
       <h2>Recommended Experts For You </h2>
-      <a href="">View All</a>
+      <a href="{% url 'ojm_core:electricianprofile_list'%}">View All</a>
     </div>
     <div class="swiper-wrapper">
       <!-- Expert one -->
       {%for electrician in electricians%}
       <div class="swiper-slide">
+        <a href="{% url 'ojm_core:electricianprofile_detail' electrician.pk %}">
         <div class="expert_data">
           {% if electrician.profile_picture %}
           <img src="{{ electrician.profile_picture.url }}" alt="{{ electrician.business_name }}">
@@ -261,6 +262,7 @@
 
           </div>
         </div>
+      </a>
       </div>
       {%endfor%}
 

@@ -25,7 +25,7 @@ from chatapp.models import Conversation, Message
 
 from django.db.models import Count
 from datetime import timedelta
-
+from django.views.generic import ListView, DetailView
 
 from django.utils.html import strip_tags
 from django.core.mail import EmailMultiAlternatives
@@ -583,6 +583,17 @@ def get_notifications(request):
     return render(request, 'notifications.html', context)
 
 
+
+
+class ElectricianProfileListView(ListView):
+    model = ElectricianProfile
+    template_name = 'electricianprofile_list.html'
+    context_object_name = 'profiles'
+
+class ElectricianProfileDetailView(DetailView):
+    model = ElectricianProfile
+    template_name = 'electricianprofile_detail.html'
+    context_object_name = 'profile'
 
 def custom_404(request, exception):
     return render(request, '404.html', status=404)

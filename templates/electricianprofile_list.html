@@ -1,0 +1,95 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <title>Electrician Profiles</title>
+    <style>
+        :root {
+            --main-color-one: rgb(243, 182, 18);
+            --main-color-two: rgb(22, 31, 59);
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header{
+            background-color: var(--main-color-two);
+            color: white;
+            border-radius: 20px;
+        }
+        footer {
+            background-color: var(--main-color-two);
+            color: white;
+            text-align: center;
+            border-radius: 10px;
+            padding: 5px 0px;
+        }
+        a {
+            color: var(--main-color-one);
+        } 
+        .profile-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px;
+        }
+        .profile-card {
+            border: 1px solid var(--main-color-two);
+            padding: 20px;
+            margin: 10px;
+            border-radius: 5px;
+            background-color: white;
+            width: 300px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .profile-card h2 {
+            color: var(--main-color-one);
+            margin-top: 0;
+        }
+        .profile-card p {
+            color: var(--main-color-two);
+        }
+        .profile-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .profile-card a {
+            color: var(--main-color-one);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+    </style>
+</head>
+<body>
+    <header style="display: flex; justify-content: center; gap: 20px;">
+        <h2><a href="{%url 'ojm_core:index'%}"><i class="fa fa-home"></i></a></h2>
+        <h2>Electrician Profiles</h2>
+    </header>
+    <main class="profile-list">
+        {% for profile in profiles %}
+            <div class="profile-card">
+                {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}" alt="{{ profile.business_name }}">
+                {% else %}
+                <img src="{% static 'Assest/Img/ojmprofilephoto.jpg' %}" alt="Profile photo">
+                {% endif %}
+                <h2>{{ profile.business_name }}</h2>
+                <p>{{ profile.service_description|truncatewords:30 }}...</p>
+                <a href="{% url 'ojm_core:electricianprofile_detail' profile.pk %}">View Details</a>
+            </div>
+        {% endfor %}
+    </main>
+    <footer>
+        <p>&copy; ojm electrical <script>document.write(new Date().getFullYear())</script>. All rights Reserved</p>
+    </footer>
+</body>
+</html>
