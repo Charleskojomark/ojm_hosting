@@ -56,7 +56,7 @@
             </li>
 
             <li class="nav_item">
-              <a href="" class="nav_link">
+              <a href="{%url 'ojm_core:all_services'%}" class="nav_link">
                 <i class="uil uil-briefcase-alt nav_icon"></i> Services
               </a>
             </li>
@@ -255,7 +255,7 @@
             <div>
               {{ electrician.get_rating_display }}
             </div>
-            <p>{{electrician.service_description}}</p>
+            <p>{{electrician.service_description|slice:":100"}}</p>
 
             <h3><i class="uil uil-map-marker"></i>{{electrician.country|title}},{{electrician.state|title}},{{electrician.city|title}}</h3>
 
