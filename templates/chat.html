@@ -1,4 +1,4 @@
-{%load static%}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +28,6 @@
             background: var(--main-color-one); 
         }
         
-        
         ::-webkit-scrollbar-corner {
             background: #f1f1f1; 
         }
@@ -52,7 +51,7 @@
         
         #chat-box {
             width: 100%;
-            height: calc(100vh - 140px); /* Full height minus header and input area */
+            height: calc(100vh - 160px); /* Adjusted height calculation */
             background-color: #fff;
             border: 1px solid #ccc;
             border-radius: 8px;
@@ -102,13 +101,13 @@
             border-top: 1px solid #ccc;
             box-sizing: border-box;
             position: relative;
+            margin-top: 10px; /* Added margin to push it up */
         }
         
         #message-input {
             width: 90%; /* Adjusted width to accommodate send button */
             padding: 10px;
             margin: auto;
-            
             border: 1px solid #ccc;
             border-radius: 20px;
             resize: none;
@@ -138,7 +137,6 @@
             }
         }
         
-
     </style>
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 </head>

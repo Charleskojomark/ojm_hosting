@@ -415,6 +415,7 @@ img {
     width: 400px;
     border-radius: 5px;
     cursor: pointer;
+    max-height: 240px;
 }
 
 .service-header {
@@ -461,7 +462,7 @@ img {
 
 
 .expert_section {
-    margin-top: 3.5rem;
+    margin-top: 1rem;
 }
 
 .expert_heading {
