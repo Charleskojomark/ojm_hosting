@@ -118,9 +118,9 @@ def paystack_webhook(request):
             subscription, created = Subscription.objects.get_or_create(user=user, defaults={'status': 'Inactive'})
 
             price_ranges = {
-                10500: ("1 month", 100),
-                29500: ("3 months", 350),
-                59500: ("6 months", 1000),
+                10500: ("1 month", 300),
+                29500: ("3 months", 1000),
+                59500: ("6 months", 3000),
             }
             subscription_info = price_ranges.get(int(amount))
 

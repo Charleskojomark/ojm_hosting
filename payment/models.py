@@ -106,17 +106,17 @@ class Subscription(models.Model):
 
     def get_price(self):
         price_mapping = {
-            "1 month": 10500.00,
-            "3 months": 29500.00,
-            "6 months": 59500.00,
+            "1 month": 13000.00,
+            "3 months": 28500.00,
+            "6 months": 56500.00,
         }
         return price_mapping.get(self.name, 0)
 
     def get_old_price(self):
         old_price_mapping = {
-            "1 month": 15000.00,
-            "3 months": 45000.00,
-            "6 months": 80000.00,
+            "1 month": 13000.00,
+            "3 months": 39000.00,
+            "6 months": 78000.00,
         }
         return old_price_mapping.get(self.name, 0)
 

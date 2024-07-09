@@ -47,9 +47,9 @@ pusher = Pusher(
 
 SUBSCRIPTION_TOTAL_QUOTES = {
     "free":10,
-    "1 month": 100,
-    "3 months": 350,
-    "6 months": 1000,
+    "1 month": 300,
+    "3 months": 1000,
+    "6 months": 3000,
 }
 
 
