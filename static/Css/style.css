@@ -415,11 +415,13 @@ img {
     width: 400px;
     border-radius: 5px;
     cursor: pointer;
+    overflow: hidden;
     max-height: 240px;
 }
 
 .service-header {
     display: flex;
+    overflow: hidden;
     gap: 1.5rem;
 }
 .service-header .rating{
@@ -430,6 +432,7 @@ img {
     height: 120px;
     border-radius: 6px;
     object-fit: cover;
+    overflow: hidden;
 }
 
 .header_text {
