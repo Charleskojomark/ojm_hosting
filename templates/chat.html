@@ -51,7 +51,7 @@
         
         #chat-box {
             width: 100%;
-            height: calc(100vh - 160px); /* Adjusted height calculation */
+            height: calc(100vh - 120px); /* Adjusted height calculation */
             background-color: #fff;
             border: 1px solid #ccc;
             border-radius: 8px;
@@ -96,34 +96,29 @@
             width: 100%;
             display: flex;
             align-items: center;
-            padding: 10px;
+            padding: 5px; /* Reduced padding to move it up */
             background-color: white;
             border-top: 1px solid #ccc;
             box-sizing: border-box;
             position: relative;
-            margin-top: 10px; /* Added margin to push it up */
         }
         
         #message-input {
-            width: 90%; /* Adjusted width to accommodate send button */
+            width: 85%; /* Adjusted width to accommodate send button */
             padding: 10px;
-            margin: auto;
             border: 1px solid #ccc;
             border-radius: 20px;
             resize: none;
         }
         
         #send-button {
-            position: absolute;
-            right: 6%;
-            bottom: 50%;
-            transform: translateY(50%);
             padding: 10px 20px;
             border: none;
             border-radius: 20px;
             background-color: var(--main-color-one);
             color: black;
             cursor: pointer;
+            margin-left: 10px; /* Added margin to separate from input */
         }
         
         #send-button:hover {
