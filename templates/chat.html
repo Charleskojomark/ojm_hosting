@@ -1,4 +1,4 @@
-{% load static %}
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,6 +28,7 @@
             background: var(--main-color-one); 
         }
         
+        
         ::-webkit-scrollbar-corner {
             background: #f1f1f1; 
         }
@@ -51,7 +52,7 @@
         
         #chat-box {
             width: 100%;
-            height: calc(100vh - 120px); /* Adjusted height calculation */
+            height: calc(100vh - 140px); /* Full height minus header and input area */
             background-color: #fff;
             border: 1px solid #ccc;
             border-radius: 8px;
@@ -96,7 +97,7 @@
             width: 100%;
             display: flex;
             align-items: center;
-            padding: 5px; /* Reduced padding to move it up */
+            padding: 10px;
             background-color: white;
             border-top: 1px solid #ccc;
             box-sizing: border-box;
@@ -104,21 +105,26 @@
         }
         
         #message-input {
-            width: 85%; /* Adjusted width to accommodate send button */
+            width: 90%; /* Adjusted width to accommodate send button */
             padding: 10px;
+            margin: auto;
+            
             border: 1px solid #ccc;
             border-radius: 20px;
             resize: none;
         }
         
         #send-button {
+            position: absolute;
+            right: 6%;
+            bottom: 50%;
+            transform: translateY(50%);
             padding: 10px 20px;
             border: none;
             border-radius: 20px;
             background-color: var(--main-color-one);
             color: black;
             cursor: pointer;
-            margin-left: 10px; /* Added margin to separate from input */
         }
         
         #send-button:hover {
@@ -132,6 +138,7 @@
             }
         }
         
+
     </style>
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 </head>
@@ -169,11 +176,11 @@
                     var chatBox = document.getElementById('chat-box');
                     var newMessage = document.createElement('div');
                     newMessage.className = 'message ' + (data.sender === '{{ request.user.username }}' ? 'you' : 'other');
-                    newMessage.innerHTML = `
+                    newMessage.innerHTML = 
                         <strong>${data.sender === '{{ request.user.username }}' ? 'You' : '{{ other_user.username }}'}:</strong> 
                         ${data.content} <br>
                         <small>${timeSince(new Date(data.timestamp))}</small>
-                    `;
+                    ;
                     chatBox.appendChild(newMessage);
                     chatBox.scrollTop = chatBox.scrollHeight;
                 }
@@ -229,3 +236,4 @@
     </script>
 </body>
 </html>
+
