@@ -3,10 +3,18 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 from .models import User,ElectricianProfile,CustomerProfile,Identity
 class ElectricianProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'business_name', 'country', 'state', 'city')
+    list_display = ('user', 'business_name','get_phone_number','country', 'state', 'city')
+    
+    def get_phone_number(self, obj):
+        return obj.user.phone_number
+    get_phone_number.short_description = 'Phone Number'
 
 class CustomerProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'country', 'state', 'city')
+    list_display = ('user','get_phone_number','country', 'state', 'city')
+    
+    def get_phone_number(self, obj):
+        return obj.user.phone_number
+    get_phone_number.short_description = 'Phone Number'
     
 class CustomUserAdmin(UserAdmin):
     # Define the list filters
