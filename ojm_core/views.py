@@ -60,13 +60,15 @@ def index(request):
     advertisements = Advertisement.objects.all()
     services = Service.objects.all()
     customer_reviews = CustomerReviews.objects.all()
-    electricians = ElectricianProfile.objects.all() 
+    electricians = ElectricianProfile.objects.all()
+    electricians_verified = ElectricianProfile.objects.filter(id_verified=True)
     context = {
         'categories': categories,
         'advertisements': advertisements,
         'services':services,
         'reviews':customer_reviews,
         'electricians':electricians,
+        'electricians_verified':electricians_verified,
     }
 
     if request.user.is_authenticated:
