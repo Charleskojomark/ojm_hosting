@@ -240,7 +240,8 @@
     </div>
     <div class="swiper-wrapper">
       <!-- Expert one -->
-      {%for electrician in electricians%}
+            {%if request.user.is_authenticated%}
+            {%for electrician in electricians%}
       <div class="swiper-slide">
         <a href="{% url 'ojm_core:electricianprofile_detail' electrician.pk %}">
         <div class="expert_data">
@@ -265,7 +266,11 @@
       </a>
       </div>
       {%endfor%}
-
+      {% else %}
+      <div>
+        <h2>No Experts to display, <a href="{% url 'userauth:login'%}">Login</a> to view experts</h2>
+      </div>
+      {% endif %}
     </div>
 
   </section>
