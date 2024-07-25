@@ -14,7 +14,7 @@ class CustomUserAdmin(UserAdmin):
 
     search_fields = ('username',)
 
-    list_display = ('username', 'email','phone_number', 'first_name', 'last_name', 'is_active', 'is_staff')
+    list_display = ('username', 'email','phone_number', 'first_name', 'last_name', 'is_active')
 
    
 
