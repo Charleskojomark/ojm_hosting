@@ -14,7 +14,7 @@ class CustomerProfileAdmin(admin.ModelAdmin):
     
     def get_phone_number(self, obj):
         return obj.user.phone_number
-    get_phone_number.short_description = 'Phone Number'
+    get_phone_number.short_description = 'Phone-Number'
     
 class CustomUserAdmin(UserAdmin):
     # Define the list filters
