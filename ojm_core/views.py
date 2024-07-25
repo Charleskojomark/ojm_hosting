@@ -594,11 +594,13 @@ def get_notifications(request):
     }
     return render(request, 'notifications.html', context)
 
-
 class ElectricianProfileListView(LoginRequiredMixin, ListView):
     model = ElectricianProfile
     template_name = 'electricianprofile_list.html'
     context_object_name = 'profiles'
+
+    def get_queryset(self):
+        return ElectricianProfile.objects.filter(id_verified=True)
 
 class ElectricianProfileDetailView(LoginRequiredMixin, DetailView):
     model = ElectricianProfile
