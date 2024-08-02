@@ -393,6 +393,9 @@
         <ul>
           <li><a href="https://bit.ly/OjmTrainingRegistrationForm">Become An Electrician</a></li>
           <li><a href="{%url 'userauth:signup'%}">Become A Customer</a></li>
+          {% if user.is_superuser %}
+                <li><a href="{% url 'userauth:send_bulk_email' %}">Send Bulk Email</a></li>
+          {% endif %}
         </ul>
       </div>
 
