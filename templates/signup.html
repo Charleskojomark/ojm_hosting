@@ -336,7 +336,7 @@
     countrySelect.addEventListener('change', function() {
       var countryId = this.value;
       if (countryId) {
-        fetch("{% url 'ajax_load_states' %}?country_id=" + countryId)
+        fetch("{% url 'userauth:ajax_load_states' %}?country_id=" + countryId)
           .then(response => response.json())
           .then(data => {
             stateSelect.innerHTML = '<option value="">Select a state</option>';
