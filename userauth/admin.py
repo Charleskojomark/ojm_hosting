@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
-from .models import User,ElectricianProfile,CustomerProfile,Identity
+from .models import User,ElectricianProfile,CustomerProfile,Identity,Country,Region
 class ElectricianProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'business_name','get_phone_number','country', 'state', 'city')
     
@@ -27,6 +27,8 @@ class CustomUserAdmin(UserAdmin):
    
 
 admin.site.register(Identity)
+admin.site.register(Country)
+admin.site.register(Region)
 admin.site.register(ElectricianProfile, ElectricianProfileAdmin)
 admin.site.register(CustomerProfile, CustomerProfileAdmin)
 admin.site.register(User, CustomUserAdmin)
