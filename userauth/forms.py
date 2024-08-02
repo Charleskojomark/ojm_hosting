@@ -71,8 +71,19 @@ class ElectricianSignUpForm(UserCreationForm):
     profile_picture = forms.ImageField(required=False, label='Profile Image',widget=forms.FileInput(attrs={'id': 'businessProfilePicture'}))
     founded_date = forms.DateField(label='Founded Date',widget=forms.DateInput(attrs={'placeholder': 'Founded date', 'type': 'date', 'id': 'foundedDate'}))
     registered = forms.BooleanField(required=False, label='Registered Business',widget=forms.CheckboxInput(attrs={'id': 'registered'}))
-    country = forms.ChoiceField(choices=WEST_AFRICAN_COUNTRIES, label='Country')
-    state = forms.ChoiceField(choices=NIGERIAN_STATES, label='State')
+    
+    country = forms.ModelChoiceField(
+        queryset=Country.objects.all(),
+        label='Country'
+    )
+    state = forms.ModelChoiceField(
+        queryset=Region.objects.none(),
+        label='State'
+    )
+    
+    
+    # country = forms.ChoiceField(choices=WEST_AFRICAN_COUNTRIES, label='Country')
+    # state = forms.ChoiceField(choices=NIGERIAN_STATES, label='State')
     city = forms.CharField(max_length=255, label='City',widget=forms.TextInput(attrs={'placeholder': 'Enter city', 'id': 'city'}))
     address = forms.CharField(max_length=255, label='Address',widget=forms.TextInput(attrs={'placeholder': 'Enter address', 'id': 'address'}))
     terms = forms.BooleanField(required=True, label='I agree to the terms and conditions',widget=forms.CheckboxInput(attrs={'id': 'terms'}))
@@ -88,6 +99,17 @@ class ElectricianSignUpForm(UserCreationForm):
             'email': forms.TextInput(attrs={'placeholder': 'Email Address', 'id': 'email'}),
             'phone_number': forms.TextInput(attrs={'placeholder': 'Phone Number', 'id': 'phone'}),
         }
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if 'country' in self.data:
+            try:
+                country_id = int(self.data.get('country'))
+                self.fields['state'].queryset = Region.objects.filter(country_id=country_id).order_by('name')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty state queryset
+        elif self.instance.pk:
+            self.fields['state'].queryset = self.instance.country.region_set.order_by('name')   
         
         
 class CustomerSignUpForm(UserCreationForm):
