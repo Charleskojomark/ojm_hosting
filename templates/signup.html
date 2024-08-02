@@ -179,9 +179,12 @@
 
         <div class="form-step" id="step3Form">
           <h2>Step 3: Location</h2>
+
+          <label for="id_country">Country</label>
           {{form.country}}
           <small></small>
 
+          <label for="id_state">State</label>
           {{form.state}}
           <small></small>
           
@@ -325,6 +328,29 @@
     document.addEventListener('DOMContentLoaded', function () {
         togglePasswordVisibility('togglePassword1', '{{ form.password1.name }}');
         togglePasswordVisibility('togglePassword2', '{{ form.password2.name }}');
+    });
+
+    var countrySelect = document.getElementById('id_country');
+    var stateSelect = document.getElementById('id_state');
+
+    countrySelect.addEventListener('change', function() {
+      var countryId = this.value;
+      if (countryId) {
+        fetch("{% url 'ajax_load_states' %}?country_id=" + countryId)
+          .then(response => response.json())
+          .then(data => {
+            stateSelect.innerHTML = '<option value="">Select a state</option>';
+            data.states.forEach(state => {
+              var option = document.createElement('option');
+              option.value = state.id;
+              option.textContent = state.name;
+              stateSelect.appendChild(option);
+            });
+          })
+          .catch(error => console.error('Error fetching states:', error));
+      } else {
+        stateSelect.innerHTML = '<option value="">Select a state</option>';
+      }
     });
 </script>
 </body>

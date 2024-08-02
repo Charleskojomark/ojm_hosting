@@ -11,6 +11,7 @@ urlpatterns = [
     path('login', views.login_view, name="login"),
     path('logout', views.logout_view, name="logout"),
     
+    path('ajax/load-states/', views.load_states, name='ajax_load_states'),
     
     path('update-pic', views.update_picture, name="update_pic"),
     path('update-customer-pic', views.update_customer_picture, name="update_customer_pic"),

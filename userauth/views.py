@@ -2,8 +2,9 @@ from django.contrib.auth.models import Group
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from django.http import JsonResponse
 from django.contrib import messages
-from userauth.models import User, ElectricianProfile, CustomerProfile,Identity
+from userauth.models import User, ElectricianProfile, CustomerProfile,Identity,Country,Region
 from django.core.mail import send_mail
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
@@ -33,6 +34,12 @@ from .forms import ElectricianSignUpForm,CustomerSignUpForm,UpdatePicture,Update
 
 def sign(request):
     return render(request, 'sign.html')
+
+def load_states(request):
+    country_id = request.GET.get('country_id')
+    states = Region.objects.filter(country_id=country_id).order_by('name')
+    return JsonResponse({'states': list(states.values('id', 'name'))})
+
 
 def signup(request):
     if request.method == "POST":
