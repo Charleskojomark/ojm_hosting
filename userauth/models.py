@@ -87,6 +87,19 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
+    
+class Country(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+class Region(models.Model):
+    name = models.CharField(max_length=100)
+    country = models.ForeignKey(Country, related_name='regions', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
 
 class ElectricianProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -95,8 +108,8 @@ class ElectricianProfile(models.Model):
     profile_picture = models.ImageField(upload_to=user_directory_path, blank=True, null=True)
     founded_date = models.DateField()
     registered = models.BooleanField(default=False)
-    country = models.CharField(max_length=50, choices=WEST_AFRICAN_COUNTRIES,blank=True,null=True)
-    state = models.CharField(max_length=50, choices=NIGERIAN_STATES,blank=True,null=True)
+    country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, blank=True)
+    state = models.ForeignKey(Region, on_delete=models.SET_NULL, null=True, blank=True)    
     city = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     terms = models.BooleanField(default=False)
@@ -123,8 +136,8 @@ class ElectricianProfile(models.Model):
 class CustomerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to=user_directory_path, blank=True, null=True)
-    country = models.CharField(max_length=50, choices=WEST_AFRICAN_COUNTRIES,blank=True,null=True)
-    state = models.CharField(max_length=50, choices=NIGERIAN_STATES,blank=True,null=True)
+    country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, blank=True)
+    state = models.ForeignKey(Region, on_delete=models.SET_NULL, null=True, blank=True)
     city = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     terms = models.BooleanField(default=False)
