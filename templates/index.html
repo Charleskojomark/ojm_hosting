@@ -240,7 +240,7 @@
     </div>
     <div class="swiper-wrapper">
       <!-- Expert one -->
-      {%for electrician in electricians%}
+      {%for electrician in electricians_verified%}
       <div class="swiper-slide">
         <a href="{% url 'ojm_core:electricianprofile_detail' electrician.pk %}">
         <div class="expert_data">
@@ -265,7 +265,6 @@
       </a>
       </div>
       {%endfor%}
-
     </div>
 
   </section>

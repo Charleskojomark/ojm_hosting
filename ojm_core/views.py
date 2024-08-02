@@ -30,6 +30,8 @@ from django.views.generic import ListView, DetailView
 from django.utils.html import strip_tags
 from django.core.mail import EmailMultiAlternatives
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from django.conf import settings
 from pusher import Pusher
 from django.contrib.sitemaps import Sitemap
@@ -58,13 +60,15 @@ def index(request):
     advertisements = Advertisement.objects.all()
     services = Service.objects.all()
     customer_reviews = CustomerReviews.objects.all()
-    electricians = ElectricianProfile.objects.all() 
+    electricians = ElectricianProfile.objects.all()
+    electricians_verified = ElectricianProfile.objects.filter(id_verified=True)
     context = {
         'categories': categories,
         'advertisements': advertisements,
         'services':services,
         'reviews':customer_reviews,
         'electricians':electricians,
+        'electricians_verified':electricians_verified,
     }
 
     if request.user.is_authenticated:
@@ -590,18 +594,28 @@ def get_notifications(request):
     }
     return render(request, 'notifications.html', context)
 
-
-
-
-class ElectricianProfileListView(ListView):
+class ElectricianProfileListView(LoginRequiredMixin, ListView):
     model = ElectricianProfile
     template_name = 'electricianprofile_list.html'
     context_object_name = 'profiles'
 
-class ElectricianProfileDetailView(DetailView):
+    def get_queryset(self):
+        return ElectricianProfile.objects.filter(id_verified=True)
+
+class ElectricianProfileDetailView(LoginRequiredMixin, DetailView):
     model = ElectricianProfile
     template_name = 'electricianprofile_detail.html'
     context_object_name = 'profile'
+
+# class ElectricianProfileListView(ListView):
+#     model = ElectricianProfile
+#     template_name = 'electricianprofile_list.html'
+#     context_object_name = 'profiles'
+
+# class ElectricianProfileDetailView(DetailView):
+#     model = ElectricianProfile
+#     template_name = 'electricianprofile_detail.html'
+#     context_object_name = 'profile'
     
 def about(request):
     return render(request, 'about.html')
