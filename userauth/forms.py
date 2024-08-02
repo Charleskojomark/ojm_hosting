@@ -4,6 +4,10 @@ from .models import User, ElectricianProfile, CustomerProfile, Identity,Country,
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 
 
+class BulkEmailForm(forms.Form):
+    subject = forms.CharField(max_length=255, widget=forms.TextInput(attrs={'placeholder': 'Email Subject'}))
+    message = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Email Message'}))
+
 WEST_AFRICAN_COUNTRIES = [
         ('nigeria', 'Nigeria'),
         ('benin', 'Benin'),

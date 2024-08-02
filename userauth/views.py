@@ -11,6 +11,13 @@ from django.utils.encoding import force_bytes, force_str
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
 
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib import messages
+from .forms import BulkEmailForm
+from userauth.models import User
+
 from django.utils.html import strip_tags
 from django.core.mail import EmailMultiAlternatives
 
@@ -472,3 +479,39 @@ def id_verification(request):
         form = IdentityForm(instance=Identity.objects.filter(user=user).first())
 
     return render(request, 'profdash.html', {'id_form': form})
+
+
+
+def is_admin_or_staff(user):
+    return user.is_authenticated and (user.is_staff or user.is_superuser)
+
+@user_passes_test(is_admin_or_staff)
+def send_bulk_email_view(request):
+    if request.method == 'POST':
+        form = BulkEmailForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            message_template = form.cleaned_data['message']
+            users = User.objects.all()
+            
+            for user in users:
+                message = render_to_string('email_template.html', {
+                    'first_name': user.first_name,
+                    'last_name': user.last_name,
+                    'message': message_template,
+                })
+                email = EmailMessage(
+                    subject,
+                    message,
+                    'Ojm Electrical <no-reply@ojmelectrical.com>',
+                    [user.email],
+                )
+                email.content_subtype = 'html'
+                email.send()
+            
+            messages.success(request, 'Successfully sent bulk emails.')
+            return redirect('userauth:send_bulk_email')
+    else:
+        form = BulkEmailForm()
+    
+    return render(request, 'send_bulk_email.html', {'form': form})

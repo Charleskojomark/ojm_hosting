@@ -25,7 +25,7 @@ urlpatterns = [
     path('cac',views.cac_verification,name="cac"),
     path('verify-id',views.id_verification,name="id_verify"),
     
-    
+    path('send-bulk-email/', views.send_bulk_email_view, name='send_bulk_email'),
     
     path('password_reset/', CustomPasswordResetView.as_view(), name='password_reset'),
     path('password_reset/done/', CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
