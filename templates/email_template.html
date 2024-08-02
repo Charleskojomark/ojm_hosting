@@ -1,0 +1,21 @@
+<!-- templates/email_template.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Custom Email</title>
+    <style>
+        .footer_copy {
+            text-align: center;
+            margin: 10px 0;
+            font-size: medium;
+          }
+    </style>
+</head>
+<body>
+    <p>Dear {{ first_name }} {{ last_name }},</p>
+    <p>Thank you for choosing Ojm Electrical</p>
+    <p class="footer_copy">&#169; ojm electrical
+        <script>document.write(new Date().getFullYear())</script>. All rights Reserved
+    </p>
+</body>
+</html>

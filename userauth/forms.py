@@ -82,8 +82,6 @@ class ElectricianSignUpForm(UserCreationForm):
     )
     
     
-    # country = forms.ChoiceField(choices=WEST_AFRICAN_COUNTRIES, label='Country')
-    # state = forms.ChoiceField(choices=NIGERIAN_STATES, label='State')
     city = forms.CharField(max_length=255, label='City',widget=forms.TextInput(attrs={'placeholder': 'Enter city', 'id': 'city'}))
     address = forms.CharField(max_length=255, label='Address',widget=forms.TextInput(attrs={'placeholder': 'Enter address', 'id': 'address'}))
     terms = forms.BooleanField(required=True, label='I agree to the terms and conditions',widget=forms.CheckboxInput(attrs={'id': 'terms'}))
@@ -127,8 +125,6 @@ class CustomerSignUpForm(UserCreationForm):
         label='State'
     )
     
-    # country = forms.ChoiceField(choices=WEST_AFRICAN_COUNTRIES, label='Country')
-    # state = forms.ChoiceField(choices=NIGERIAN_STATES, label='State')
     city = forms.CharField(max_length=255, label='City',widget=forms.TextInput(attrs={'placeholder': 'Enter city', 'id': 'city'}))
     address = forms.CharField(max_length=255, label='Address',widget=forms.TextInput(attrs={'placeholder': 'Enter address', 'id': 'address'}))
     terms = forms.BooleanField(required=True, label='I agree to the terms and conditions',widget=forms.CheckboxInput(attrs={'id': 'terms'}))
