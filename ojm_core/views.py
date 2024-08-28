@@ -346,6 +346,10 @@ def post_request(request):
 
 def user_post(request):
     user = request.user
+    if not user.groups.filter(name='customers').exists():
+        messages.error(request, "Please only customers are allowed to post a job.")
+        return redirect('ojm_core:index')
+        
     if request.method == "POST":
         query = request.POST['query']
         service_description = request.POST['serviceDescription']
